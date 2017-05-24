@@ -5,7 +5,7 @@ using System.Text;
 
 namespace WhatsYummyClassLibrary
 {
-    class WhatsYummy
+    public class WhatsYummy
     {
         private int totalUtilizadores;
         private int totalEstabelecimentos;
@@ -32,29 +32,50 @@ namespace WhatsYummyClassLibrary
 
         public void RegistarUtilizador(String email, String dataNascimento, String nome, String password, String username, String foto, bool admin)
         {
+            foreach(var par in utilizadores)
+            {
+                if (par.Value.Email.Equals(email)) throw new Exception();
+                if (par.Value.Username.Equals(username)) throw new Exception();
+            }
             Utilizador u = new Utilizador(email, dataNascimento, nome, password, username, foto, totalUtilizadores, admin);
             utilizadores.Add(totalUtilizadores, u);
             totalUtilizadores++;
             Console.WriteLine("Utilizador registado!");
         }
 
+        public Utilizador IniciarSessao(String username, String password)
+        {
+            foreach (var par in utilizadores)
+            {
+                Utilizador ut = par.Value;
+                if (ut.Username == username && ut.Password == password) utilizador = ut; Console.WriteLine("Sessao iniciada!"); return ut;
+            }
+            throw new Exception();
+        }
+
+        public void TerminarSessao(int idUtilizador)
+        {
+            if (utilizador.Id == idUtilizador) utilizador = null;
+            Console.WriteLine("Sessao terminada!");
+        }
+
         public void AdicionarEstabelecimento(String descricao, String nome, String localidade, String codigoPostal, String rua, int proprietario, int estado)
         {
-            Estabelecimento e = new Estabelecimento(totalEstabelecimentos, descricao, nome, localidade, codigoPostal, rua, proprietario, estado);
+            Estabelecimento e = new Estabelecimento(totalEstabelecimentos, descricao, nome, localidade, codigoPostal, rua, utilizador.Id, estado);
             estabelecimentos.Add(totalEstabelecimentos, e);
             totalEstabelecimentos++;
+            Console.WriteLine("Estabelecimento adicionado!");
         }
 
         public void RemoverEstabelecimento(int id)
         {
             estabelecimentos.Remove(id);
-            totalEstabelecimentos--;
         }
 
         public List<Produto> PedirProduto(int idUtilizador, List<Tag> tags)
         {
             List<Produto> prods = new List<Produto>();
-            foreach( var par in estabelecimentos)
+            foreach (var par in estabelecimentos)
             {
                 List<Produto> l = par.Value.PedirProduto(tags);
                 prods.AddRange(l);
@@ -97,6 +118,7 @@ namespace WhatsYummyClassLibrary
         public void ValidarEstabelecimento(int idEstabelecimento)
         {
             estabelecimentos[idEstabelecimento].Validar();
+            Console.WriteLine("Estabelecimento validado!");
         }
 
         public Estabelecimento ConsultarEstabelecimento(int idEstabelecimento)
@@ -139,22 +161,6 @@ namespace WhatsYummyClassLibrary
             return PedirSuguestao(idUtilizador);
         }
 
-        public Utilizador IniciarSessao(String username, String password)
-        {
-            foreach (var par in utilizadores)
-            {
-                Utilizador ut = par.Value;
-                if (ut.Username == username && ut.Password == password) utilizador = ut; Console.WriteLine("Sessao iniciada!"); return ut;
-            }
-            return null;
-        }
-
-        public void TerminarSessao(int idUtilizador)
-        {
-            if (utilizador.Id == idUtilizador) utilizador = null;
-            Console.WriteLine("Sessao terminada!");
-        }
-
         public List<Produto> ConsultarFavoritos(int idUtilizador)
         {
             return utilizadores[idUtilizador].GetListaFavoritos();
@@ -170,10 +176,14 @@ namespace WhatsYummyClassLibrary
             return estabelecimentos[idEstabelecimento].ConsultarProduto(idProduto);
         }
 
-        public void AdicionarProduto(int idEstabelecimento, int idProduto, String nome, String descricao, float preco)
+        public void AdicionarProduto(int idEstabelecimento, String nome, String descricao, float preco)
         {
-            estabelecimentos[idEstabelecimento].AdicionarProduto(idProduto, nome, descricao, preco);
-            totalProdutos++;
+            if(estabelecimentos[idEstabelecimento].Estado == 1)
+            {
+                estabelecimentos[idEstabelecimento].AdicionarProduto(nome, descricao, preco);
+                totalProdutos++;
+                Console.WriteLine("Produto adicionado!");
+            }
         }
 
         public void RemoverProduto(int idEstabelecimento, int idProduto)
@@ -191,6 +201,7 @@ namespace WhatsYummyClassLibrary
         {
             estabelecimentos[idEstabelecimento].ConsultarProduto(idProduto).AddAvaliacao(classificacao, comentario, idUtilizador);
             totalAvaliacoes++;
+            Console.WriteLine("Avaliacao adicionada!");
         }
     }
 }

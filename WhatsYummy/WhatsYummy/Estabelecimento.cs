@@ -38,9 +38,15 @@ namespace WhatsYummyClassLibrary
             set { proprietario = value; }
         }
 
-        public void AdicionarProduto(int idProduto, String nome, String descricao, float preco)
+        public int Estado
         {
-            Produto p = new Produto(idProduto,nome,descricao,preco,0);
+            get { return estado; }
+            set { estado = value; }
+        }
+
+        public void AdicionarProduto(String nome, String descricao, float preco)
+        {
+            Produto p = new Produto(numProdutos,nome,descricao,preco,0);
             menu.Add(numProdutos, p);
             numProdutos++;
         }
