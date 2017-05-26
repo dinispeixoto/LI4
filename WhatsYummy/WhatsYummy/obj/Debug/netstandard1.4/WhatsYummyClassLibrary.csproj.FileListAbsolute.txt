@@ -1,7 +1,0 @@
-C:\Users\Tr3s\Documents\Visual Studio 2017\Projects\WhatsYummy\WhatsYummy\bin\Debug\netstandard1.4\WhatsYummyClassLibrary.deps.json
-C:\Users\Tr3s\Documents\Visual Studio 2017\Projects\WhatsYummy\WhatsYummy\bin\Debug\netstandard1.4\WhatsYummyClassLibrary.dll
-C:\Users\Tr3s\Documents\Visual Studio 2017\Projects\WhatsYummy\WhatsYummy\bin\Debug\netstandard1.4\WhatsYummyClassLibrary.pdb
-C:\Users\Tr3s\Documents\Visual Studio 2017\Projects\WhatsYummy\WhatsYummy\obj\Debug\netstandard1.4\WhatsYummyClassLibrary.AssemblyInfo.cs
-C:\Users\Tr3s\Documents\Visual Studio 2017\Projects\WhatsYummy\WhatsYummy\obj\Debug\netstandard1.4\WhatsYummyClassLibrary.dll
-C:\Users\Tr3s\Documents\Visual Studio 2017\Projects\WhatsYummy\WhatsYummy\obj\Debug\netstandard1.4\WhatsYummyClassLibrary.pdb
-C:\Users\Tr3s\Documents\Visual Studio 2017\Projects\WhatsYummy\WhatsYummy\obj\Debug\netstandard1.4\WhatsYummyClassLibrary.csprojResolveAssemblyReference.cache

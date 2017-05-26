@@ -1,0 +1,10 @@
+c:\users\tr3s\documents\visual studio 2017\Projects\WhatsYummyApp\WhatsYummyApp\bin\Debug\netcoreapp1.1\WhatsYummyApp.deps.json
+c:\users\tr3s\documents\visual studio 2017\Projects\WhatsYummyApp\WhatsYummyApp\bin\Debug\netcoreapp1.1\WhatsYummyApp.runtimeconfig.json
+c:\users\tr3s\documents\visual studio 2017\Projects\WhatsYummyApp\WhatsYummyApp\bin\Debug\netcoreapp1.1\WhatsYummyApp.runtimeconfig.dev.json
+c:\users\tr3s\documents\visual studio 2017\Projects\WhatsYummyApp\WhatsYummyApp\bin\Debug\netcoreapp1.1\WhatsYummyApp.dll
+c:\users\tr3s\documents\visual studio 2017\Projects\WhatsYummyApp\WhatsYummyApp\bin\Debug\netcoreapp1.1\WhatsYummyApp.pdb
+c:\users\tr3s\documents\visual studio 2017\Projects\WhatsYummyApp\WhatsYummyApp\obj\Debug\netcoreapp1.1\WhatsYummyApp.csprojResolveAssemblyReference.cache
+c:\users\tr3s\documents\visual studio 2017\Projects\WhatsYummyApp\WhatsYummyApp\obj\Debug\netcoreapp1.1\UserSecretsAssemblyInfo.cs
+c:\users\tr3s\documents\visual studio 2017\Projects\WhatsYummyApp\WhatsYummyApp\obj\Debug\netcoreapp1.1\WhatsYummyApp.AssemblyInfo.cs
+c:\users\tr3s\documents\visual studio 2017\Projects\WhatsYummyApp\WhatsYummyApp\obj\Debug\netcoreapp1.1\WhatsYummyApp.dll
+c:\users\tr3s\documents\visual studio 2017\Projects\WhatsYummyApp\WhatsYummyApp\obj\Debug\netcoreapp1.1\WhatsYummyApp.pdb

@@ -1,23 +1,17 @@
--- MySQL Workbench Forward Engineering
-
-/* SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0; */
-/* SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0; */
-/* SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES'; */
 
 -- -----------------------------------------------------
 -- Schema mydb
 -- -----------------------------------------------------
-
--- -----------------------------------------------------
--- Schema mydb
--- -----------------------------------------------------
-DROP DATABASE [db];
+DROP DATABASE [WhatsYummy];
 GO
 
-CREATE DATABASE [db];
+CREATE DATABASE [WhatsYummy];
 GO
 
-USE [db];
+USE [WhatsYummy];
+GO
+
+DROP TABLE [Utilizador]
 GO
 -- -----------------------------------------------------
 -- Table `mydb`.`Utilizador`
@@ -27,7 +21,7 @@ CREATE TABLE [Utilizador] (
   [Username] VARCHAR(64) NOT NULL,
   [Password] VARCHAR(64) NOT NULL,
   [Nome] VARCHAR(64) NOT NULL,
-  [Data de nascimento] DATE NOT NULL,
+  [DataNascimento] DATE NOT NULL,
   [Foto] VARCHAR(256)  NULL,
   [Email] VARCHAR(64) NOT NULL,
   [Admin] SMALLINT NOT NULL,
