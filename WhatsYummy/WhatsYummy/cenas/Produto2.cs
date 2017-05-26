@@ -4,25 +4,25 @@ using System.Text;
 
 namespace WhatsYummyClassLibrary
 {
-    public class Produto
+    public class Produto2
     {
         private int id;
         private String nome;
         private String descricao;
         private float preco;
         private int visitas;
-        private List<Avaliacao> avalicacoes;
-        private List<Tag> tags;
+        private List<Avaliacao2> avalicacoes;
+        private List<Tag2> tags;
 
-        public Produto(int id, String nome, String descricao, float preco, int visitas)
+        public Produto2(int id, String nome, String descricao, float preco, int visitas)
         {
             this.id = id;
             this.nome = nome;
             this.descricao = descricao;
             this.preco = preco;
             this.visitas = visitas;
-            this.avalicacoes = new List<Avaliacao>();
-            this.tags = new List<Tag>();
+            this.avalicacoes = new List<Avaliacao2>();
+            this.tags = new List<Tag2>();
         }
 
         public int Id
@@ -49,7 +49,7 @@ namespace WhatsYummyClassLibrary
             set { preco = value; }
         }
 
-        public bool MatchTags(List<Tag> tags) //novo
+        public bool MatchTags(List<Tag2> tags) //novo
         {
             foreach(var tag in tags)
             {
@@ -60,13 +60,13 @@ namespace WhatsYummyClassLibrary
 
         public void AddAvaliacao(float classificacao, String comentario, int idUtilizador)
         {
-            Avaliacao av = new Avaliacao(classificacao, comentario, idUtilizador, id);
+            Avaliacao2 av = new Avaliacao2(classificacao, comentario, idUtilizador, id);
             avalicacoes.Add(av);
         }
 
         public void AddTag(String tipo, String nome, int id)
         {
-            Tag t = new Tag(tipo, nome, id);
+            Tag2 t = new Tag2(tipo, nome, id);
             tags.Add(t);
         }
 
@@ -78,12 +78,12 @@ namespace WhatsYummyClassLibrary
             }
         }
 
-        public List<Tag> GetListaTags()
+        public List<Tag2> GetListaTags()
         {
             return tags;
         }
 
-        public List<Avaliacao> GetListaAvaliacao()
+        public List<Avaliacao2> GetListaAvaliacao()
         {
             return avalicacoes;
         }

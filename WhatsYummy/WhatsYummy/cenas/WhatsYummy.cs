@@ -7,7 +7,7 @@ namespace WhatsYummyClassLibrary
 {
     public class WhatsYummy
     {
-        private int totalUtilizadores;
+      /*  private int totalUtilizadores;
         private int totalEstabelecimentos;
         private int totalProdutos;
         private int totalAvaliacoes;
@@ -202,6 +202,6 @@ namespace WhatsYummyClassLibrary
             estabelecimentos[idEstabelecimento].ConsultarProduto(idProduto).AddAvaliacao(classificacao, comentario, idUtilizador);
             totalAvaliacoes++;
             Console.WriteLine("Avaliacao adicionada!");
-        }
+        }*/
     }
 }

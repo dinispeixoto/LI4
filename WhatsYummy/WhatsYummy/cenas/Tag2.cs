@@ -4,13 +4,13 @@ using System.Text;
 
 namespace WhatsYummyClassLibrary
 {
-    public class Tag 
+    public class Tag2 
     {
         private String tipo;
         private String nome;
         private int id;
 
-        public Tag(String tipo, String nome, int id)
+        public Tag2(String tipo, String nome, int id)
         {
             this.tipo = tipo;
             this.nome = nome;
@@ -35,13 +35,5 @@ namespace WhatsYummyClassLibrary
             set { id = value; }
         }
 
-        public override bool Equals(Object obj)
-        {
-            if (obj == null || GetType() != obj.GetType())
-                return false;
-
-            Tag p = (Tag)obj;
-            return (tipo == p.Tipo) && (nome == p.Nome) && (id == p.Id);
-        }
     }
 }

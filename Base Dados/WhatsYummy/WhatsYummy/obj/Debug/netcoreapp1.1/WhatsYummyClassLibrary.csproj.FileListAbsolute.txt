@@ -1,0 +1,11 @@
+/Users/Ricardo/Documents/Git/LI4/WhatsYummy/WhatsYummy/bin/Debug/netcoreapp1.1/WhatsYummyClassLibrary.deps.json
+/Users/Ricardo/Documents/Git/LI4/WhatsYummy/WhatsYummy/bin/Debug/netcoreapp1.1/WhatsYummyClassLibrary.runtimeconfig.json
+/Users/Ricardo/Documents/Git/LI4/WhatsYummy/WhatsYummy/bin/Debug/netcoreapp1.1/WhatsYummyClassLibrary.runtimeconfig.dev.json
+/Users/Ricardo/Documents/Git/LI4/WhatsYummy/WhatsYummy/obj/Debug/netcoreapp1.1/WhatsYummyClassLibrary.csprojResolveAssemblyReference.cache
+/Users/Ricardo/Documents/Git/LI4/WhatsYummy/WhatsYummy/obj/Debug/netcoreapp1.1/WhatsYummyClassLibrary.csproj.CoreCompileInputs.cache
+/Users/Ricardo/Documents/Git/LI4/WhatsYummy/WhatsYummy/obj/Debug/netcoreapp1.1/WhatsYummyClassLibrary.AssemblyInfo.cs
+/Users/Ricardo/Documents/Git/LI4/WhatsYummy/WhatsYummy/bin/Debug/netcoreapp1.1/WhatsYummyClassLibrary.dll
+/Users/Ricardo/Documents/Git/LI4/WhatsYummy/WhatsYummy/bin/Debug/netcoreapp1.1/WhatsYummyClassLibrary.pdb
+/Users/Ricardo/Documents/Git/LI4/WhatsYummy/WhatsYummy/obj/Debug/netcoreapp1.1/WhatsYummyClassLibrary.dll
+/Users/Ricardo/Documents/Git/LI4/WhatsYummy/WhatsYummy/obj/Debug/netcoreapp1.1/WhatsYummyClassLibrary.pdb
+/Users/Ricardo/Documents/Git/LI4/WhatsYummy/WhatsYummy/bin/Debug/netcoreapp1.1/WhatsYummyClassLibrary.dll.config

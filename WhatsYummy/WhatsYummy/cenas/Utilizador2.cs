@@ -4,7 +4,7 @@ using System.Text;
 
 namespace WhatsYummyClassLibrary
 {
-    public class Utilizador
+    public class Utilizador2
     {
         private String email;
         private String dataNascimento;
@@ -14,11 +14,11 @@ namespace WhatsYummyClassLibrary
         private String foto;
         private int id;
         private bool admin;
-        private List<Tag> preferencias;
-        private List<Produto> visitas;
-        private List<Produto> favoritos;
+        private List<Tag2> preferencias;
+        private List<Produto2> visitas;
+        private List<Produto2> favoritos;
 
-        public Utilizador(String email, String dataNascimento, String nome, String password, String username, String foto, int id, bool admin)
+        public Utilizador2(String email, String dataNascimento, String nome, String password, String username, String foto, int id, bool admin)
         {
             this.email = email;
             this.dataNascimento = dataNascimento;
@@ -28,9 +28,9 @@ namespace WhatsYummyClassLibrary
             this.foto = foto;
             this.id = id;
             this.admin = admin;
-            this.preferencias = new List<Tag>();
-            this.visitas = new List<Produto>();
-            this.favoritos = new List<Produto>();
+            this.preferencias = new List<Tag2>();
+            this.visitas = new List<Produto2>();
+            this.favoritos = new List<Produto2>();
         }
 
         public int Id
@@ -81,12 +81,12 @@ namespace WhatsYummyClassLibrary
             set { admin = value; }
         }
 
-        public void AddFavorito(Produto p)
+        public void AddFavorito(Produto2 p)
         {
             favoritos.Add(p);
         }
 
-        public void AddVisita(Produto p)
+        public void AddVisita(Produto2 p)
         {
             visitas.Add(p);
         }
@@ -99,7 +99,7 @@ namespace WhatsYummyClassLibrary
             }
         }
 
-        public void AddPreferencias(List<Tag> tags)
+        public void AddPreferencias(List<Tag2> tags)
         {
             foreach (var tag in tags)
             {
@@ -107,7 +107,7 @@ namespace WhatsYummyClassLibrary
             }
         }
 
-        public void RemovePreferencias(List<Tag> tags)
+        public void RemovePreferencias(List<Tag2> tags)
         {
             foreach (var tag in tags)
             {
@@ -120,17 +120,17 @@ namespace WhatsYummyClassLibrary
             return admin;
         }
 
-        public List<Tag> GetListaPreferencias()
+        public List<Tag2> GetListaPreferencias()
         {
             return preferencias;
         }
 
-        public List<Produto> GetListaVisitas()
+        public List<Produto2> GetListaVisitas()
         {
             return visitas;
         }
 
-        public List<Produto> GetListaFavoritos()
+        public List<Produto2> GetListaFavoritos()
         {
             return favoritos;
         }
