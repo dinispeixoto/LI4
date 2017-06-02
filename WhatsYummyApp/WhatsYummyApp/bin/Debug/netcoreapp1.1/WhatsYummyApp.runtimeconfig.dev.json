@@ -1,7 +1,7 @@
 {
   "runtimeOptions": {
     "additionalProbingPaths": [
-      "C:\\Users\\Tr3s\\.nuget\\packages"
+      "/Users/dinispeixoto/.nuget/packages"
     ]
   }
 }

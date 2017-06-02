@@ -1,0 +1,14 @@
+﻿<Properties StartupConfiguration="{A49B7108-0508-4205-ACB7-98113C70CC8F}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="WhatsYummyApp/Controllers/HomeController.cs">
+    <Files>
+      <File FileName="WhatsYummyApp/Controllers/HomeController.cs" Line="14" Column="10" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.ItemProperties.WhatsYummyApp PreferredExecutionTarget="MonoDevelop.Default" />
+</Properties>

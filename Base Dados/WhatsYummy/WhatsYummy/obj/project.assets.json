@@ -15894,7 +15894,7 @@
       ]
     },
     "Microsoft.EntityFrameworkCore/1.1.1": {
-      "sha512": "wkPi/5FriMthUoCBjqO/hCDEGdRrJ5aTGKa9jGHK7NYw1uSxb2FXksBuqqMfFve3sd2j4+9BpYtdvAJ6fzjeXg==",
+      "sha512": "O7yin0eFtyWLDrCpCNsESMqs03alhiNkwAgICp28z534WNICMF4fq3+gNhBtpcgnVZjMUNGijVmV/mXs/ZETBA==",
       "type": "package",
       "path": "microsoft.entityframeworkcore/1.1.1",
       "files": [
@@ -15907,7 +15907,7 @@
       ]
     },
     "Microsoft.EntityFrameworkCore.Relational/1.1.1": {
-      "sha512": "wIeIC02b3uFQ0Mgd5yDcpzbGQs383p2BAkpMjNz2xffo9QAFXO1CDavuolRk5I2Rv/iBy9igB91BZoY0tpcMzA==",
+      "sha512": "vsMz5kkNID2N89YxEr0yuBL3ww/P96uRwJN0cJgDY3EYdDXun6RKkBupzjM4WgouO1kIeVAchWtzvsJn/v2izw==",
       "type": "package",
       "path": "microsoft.entityframeworkcore.relational/1.1.1",
       "files": [
@@ -16545,7 +16545,7 @@
       ]
     },
     "Remotion.Linq/2.1.1": {
-      "sha512": "9S1yQ35y02J4FN/i7DksCyhOLsh2u4UNNBhJQW1mWyNrK8CVGDkhTlEJdI0IaFAEg8Gh4lHuYtSY4GZXFWvD+Q==",
+      "sha512": "gL0lxohcsSNgcJqaZ7G0DnAsWHaZ0f2Y82Qcn6OC5KQno/eaA6sAmKUFUv1GALxD+gqITeDO5hlrx45d8qzIWQ==",
       "type": "package",
       "path": "remotion.linq/2.1.1",
       "files": [
@@ -17877,7 +17877,7 @@
       ]
     },
     "System.Data.Common/4.3.0": {
-      "sha512": "lm6E3T5u7BOuEH0u18JpbJHxBfOJPuCyl4Kg1RH10ktYLp5uEEE1xKrHW56/We4SnZpGAuCc9N0MJpSDhTHZGQ==",
+      "sha512": "PwI/k/LfO80sLm/gzY+oi/A0zT63Wv30dZGRszECjTdu1lAp8LyWQcMOOidLk6C3lUNCADPcB3HGRTotrRACPQ==",
       "type": "package",
       "path": "system.data.common/4.3.0",
       "files": [
@@ -18608,7 +18608,7 @@
       ]
     },
     "System.Interactive.Async/3.0.0": {
-      "sha512": "ZG+i0X7nJXPz+5QLf7lnsi5TxOM/ZPgZZu73FXyB1yrnnsaUCcuJOJEvDKKR5MYZAuUr1iCIzbGPb55rrNnZfw==",
+      "sha512": "QpdeeTe8U2Inll+YzdpvkwSwylin7/rRb+yNkFLGvik3nP5jdTNh0FAdXAPYGjtOmbqnfyH9AI03VwDgm+ni/w==",
       "type": "package",
       "path": "system.interactive.async/3.0.0",
       "files": [
@@ -22063,15 +22063,15 @@
     ]
   },
   "packageFolders": {
-    "/Users/Ricardo/.nuget/packages/": {}
+    "/Users/dinispeixoto/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/Ricardo/Documents/Git/LI4/WhatsYummy/WhatsYummy/WhatsYummy.csproj",
+      "projectUniqueName": "/Users/dinispeixoto/Desktop/LI4/Parte III/LI4/Base Dados/WhatsYummy/WhatsYummy/WhatsYummy.csproj",
       "projectName": "WhatsYummy",
-      "projectPath": "/Users/Ricardo/Documents/Git/LI4/WhatsYummy/WhatsYummy/WhatsYummy.csproj",
-      "outputPath": "/Users/Ricardo/Documents/Git/LI4/WhatsYummy/WhatsYummy/obj",
+      "projectPath": "/Users/dinispeixoto/Desktop/LI4/Parte III/LI4/Base Dados/WhatsYummy/WhatsYummy/WhatsYummy.csproj",
+      "outputPath": "/Users/dinispeixoto/Desktop/LI4/Parte III/LI4/Base Dados/WhatsYummy/WhatsYummy/obj",
       "projectStyle": "PackageReference",
       "originalTargetFrameworks": [
         "netcoreapp1.1"

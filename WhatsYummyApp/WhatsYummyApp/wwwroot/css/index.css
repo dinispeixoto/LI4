@@ -1,0 +1,60 @@
+﻿#index_header {
+    text-align: center;
+    font-size: 60px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.main-search-bar {
+    margin-top: 50px;
+    border-radius: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.navbar-header {
+    float: none;
+}
+
+.navbar-buttom-left {
+    margin-left: 1%;
+    display: block;
+    position: absolute;
+    float: right;
+}
+
+.navbar-title {
+    position: relative;
+    float: right;
+    font-size: 20px;
+}
+
+.navbar-collapse.collapse {
+    display: none !important;
+}
+
+.navbar-nav {
+    float: none !important;
+}
+
+.navbar-nav > li {
+    float: none;
+}
+
+.navbar-collapse.collapse.in {
+    display: block !important;
+}
+
+.yummy-img {
+    margin-left: auto;
+    margin-right: auto;
+    height: 25%;
+    width: 25%;
+}
+
+.home-button-layout {
+    background-color: transparent;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
