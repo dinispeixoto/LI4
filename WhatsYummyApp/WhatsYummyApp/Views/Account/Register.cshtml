@@ -1,4 +1,4 @@
-﻿@model RegisterViewModel
+﻿@@model RegisterViewModel
 @{
     ViewData["Title"] = "Register";
 }
@@ -9,6 +9,34 @@
     <h4>Create a new account.</h4>
     <hr />
     <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="Nome" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="Nome" class="form-control" />
+            <span asp-validation-for="Nome" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="UserName" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="UserName" class="form-control" />
+            <span asp-validation-for="UserName" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="DataNascimento" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="DataNascimento" class="form-control" />
+            <span asp-validation-for="DataNascimento" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="Foto" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="Foto" class="form-control" />
+            <span asp-validation-for="Foto" class="text-danger"></span>
+        </div>
+    </div>
     <div class="form-group">
         <label asp-for="Email" class="col-md-2 control-label"></label>
         <div class="col-md-10">

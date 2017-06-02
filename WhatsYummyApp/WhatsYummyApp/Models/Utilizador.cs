@@ -1,16 +1,15 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace WhatsYummyApp.Models
 {
-    public class Utilizador
+    public class Utilizador : IdentityUser
     {
-        private String email;
         private String dataNascimento;
         private String nome;
         private String password;
-        private String username;
         private String foto;
         private int id;
         private bool admin;
@@ -18,37 +17,32 @@ namespace WhatsYummyApp.Models
         private List<Produto> visitas;
         private List<Produto> favoritos;
 
+        public Utilizador()
+        {
+            this.preferencias = new List<Tag>();
+            this.visitas = new List<Produto>();
+            this.favoritos = new List<Produto>();
+        }
+
         public Utilizador(String email, String dataNascimento, String nome, String password, String username, String foto, int id, bool admin)
         {
-            this.email = email;
+            this.Email = email;
             this.dataNascimento = dataNascimento;
             this.nome = nome;
             this.password = password;
-            this.username = username;
             this.foto = foto;
             this.id = id;
             this.admin = admin;
             this.preferencias = new List<Tag>();
             this.visitas = new List<Produto>();
             this.favoritos = new List<Produto>();
+            this.UserName = username;
         }
 
         public int Id
         {
             get { return id; }
             set { id = value; }
-        }
-
-        public String Username
-        {
-            get { return username; }
-            set { username = value; }
-        }
-
-        public String Email
-        {
-            get { return email; }
-            set { email = value; }
         }
 
         public String DataNascimento

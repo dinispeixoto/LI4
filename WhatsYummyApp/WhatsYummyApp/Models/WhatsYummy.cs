@@ -35,7 +35,7 @@ namespace WhatsYummyApp.Models
             foreach(var par in utilizadores)
             {
                 if (par.Value.Email.Equals(email)) throw new Exception();
-                if (par.Value.Username.Equals(username)) throw new Exception();
+                if (par.Value.UserName.Equals(username)) throw new Exception();
             }
             Utilizador u = new Utilizador(email, dataNascimento, nome, password, username, foto, totalUtilizadores, admin);
             utilizadores.Add(totalUtilizadores, u);
@@ -48,7 +48,7 @@ namespace WhatsYummyApp.Models
             foreach (var par in utilizadores)
             {
                 Utilizador ut = par.Value;
-                if (ut.Username == username && ut.Password == password) utilizador = ut; Console.WriteLine("Sessao iniciada!"); return ut;
+                if (ut.UserName == username && ut.Password == password) utilizador = ut; Console.WriteLine("Sessao iniciada!"); return ut;
             }
             throw new Exception();
         }

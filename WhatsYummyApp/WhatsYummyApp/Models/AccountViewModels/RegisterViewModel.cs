@@ -9,6 +9,22 @@ namespace WhatsYummyApp.Models.AccountViewModels
     public class RegisterViewModel
     {
         [Required]
+        [Display(Name = "Nome")]
+        public string Nome { get; set; }
+
+        [Required]
+        [Display(Name = "Username")]
+        public string UserName { get; set; }
+
+        [Required]
+        [Display(Name = "Data de nascimento")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public String DataNascimento { get; set; }
+
+        [Display(Name = "Foto")]
+        public string Foto { get; set; }
+
+        [Required]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }

@@ -8,7 +8,7 @@ using WhatsYummyApp.Models;
 
 namespace WhatsYummyApp.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class ApplicationDbContext : IdentityDbContext<Utilizador>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
