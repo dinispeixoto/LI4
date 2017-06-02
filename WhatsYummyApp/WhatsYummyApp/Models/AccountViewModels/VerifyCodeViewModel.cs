@@ -19,7 +19,7 @@ namespace WhatsYummyApp.Models.AccountViewModels
         [Display(Name = "Remember this browser?")]
         public bool RememberBrowser { get; set; }
 
-        [Display(Name = "Remember me?")]
+        [Display(Name = "Lembrar-me mais tarde.")]
         public bool RememberMe { get; set; }
     }
 }

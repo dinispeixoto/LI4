@@ -1,12 +1,12 @@
-﻿@@model RegisterViewModel
+﻿@model RegisterViewModel
 @{
-    ViewData["Title"] = "Register";
+    ViewData["Title"] = "Registo";
 }
 
 <h2>@ViewData["Title"].</h2>
 
 <form asp-controller="Account" asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal">
-    <h4>Create a new account.</h4>
+    <h4>Regista-te já para poderes começar a usufruir da aplicação!</h4>
     <hr />
     <div asp-validation-summary="All" class="text-danger"></div>
     <div class="form-group">
@@ -60,8 +60,9 @@
     </div>
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <button type="submit" class="btn btn-default">Register</button>
-        </div>
+            <button type="submit" class="btn btn-default">Registo</button>
+			<a class="btn btn-default" href="../account/login">Cancelar</a>
+		</div>
     </div>
 </form>
 
