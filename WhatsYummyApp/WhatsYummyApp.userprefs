@@ -1,7 +1,14 @@
 ﻿<Properties StartupConfiguration="{A49B7108-0508-4205-ACB7-98113C70CC8F}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="WhatsYummyApp/Views/Account/Login.cshtml">
+  <MonoDevelop.Ide.Workbench ActiveDocument="WhatsYummyApp/Startup.cs">
     <Files>
-      <File FileName="WhatsYummyApp/Views/Account/Login.cshtml" Line="37" Column="34" />
+      <File FileName="WhatsYummyApp/Controllers/AccountController.cs" Line="122" Column="40" />
+      <File FileName="WhatsYummyApp/Controllers/EstabelecimentoesController.cs" Line="1" Column="1" />
+      <File FileName="WhatsYummyApp/Program.cs" Line="22" Column="1" />
+      <File FileName="WhatsYummyApp/Startup.cs" Line="1" Column="1" />
+      <File FileName="WhatsYummyApp/appsettings.json" Line="1" Column="1" />
+      <File FileName="WhatsYummyApp/appsettings.Development.json" Line="1" Column="1" />
+      <File FileName="WhatsYummyApp/bower.json" Line="1" Column="1" />
+      <File FileName="WhatsYummyApp/bundleconfig.json" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
