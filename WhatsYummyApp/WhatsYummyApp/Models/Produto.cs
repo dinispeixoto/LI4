@@ -13,6 +13,12 @@ namespace WhatsYummyApp.Models
         private int visitas;
         private List<Avaliacao> avalicacoes;
         private List<Tag> tags;
+        private int numAvaliacoes;
+
+        public Produto()
+        {
+
+        }
 
         public Produto(int id, String nome, String descricao, float preco, int visitas)
         {
@@ -23,6 +29,7 @@ namespace WhatsYummyApp.Models
             this.visitas = visitas;
             this.avalicacoes = new List<Avaliacao>();
             this.tags = new List<Tag>();
+            this.numAvaliacoes = 0;
         }
 
         public int Id
@@ -60,7 +67,7 @@ namespace WhatsYummyApp.Models
 
         public void AddAvaliacao(float classificacao, String comentario, int idUtilizador)
         {
-            Avaliacao av = new Avaliacao(classificacao, comentario, idUtilizador, id);
+            Avaliacao av = new Avaliacao(classificacao,comentario,idUtilizador,numAvaliacoes);
             avalicacoes.Add(av);
         }
 

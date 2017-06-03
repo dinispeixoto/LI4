@@ -74,6 +74,9 @@ namespace WhatsYummyApp
                 // User settings
                 options.User.RequireUniqueEmail = true;
             });
+
+            services.AddDbContext<WhatsYummyAppContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("WhatsYummyAppContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

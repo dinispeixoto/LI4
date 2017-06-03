@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace WhatsYummyApp.Models
 {
@@ -13,9 +14,14 @@ namespace WhatsYummyApp.Models
         private String rua;
         private int proprietario;
         private int estado;
-        private Horario[] horario;
-        private Dictionary<int, Produto> menu;
-        private int numProdutos;
+        private readonly Horario[] horario = new Horario[7];
+        private readonly Dictionary<int, Produto> menu = new Dictionary<int, Produto>();
+        private int numProdutos = 0;
+
+        public Estabelecimento()
+        {
+
+        }
 
         public Estabelecimento(int id, String descricao, String nome, String localidade, String codigoPostal, String rua, int proprietario, int estado)
         {
@@ -27,9 +33,42 @@ namespace WhatsYummyApp.Models
             this.rua = rua;
             this.proprietario = proprietario;
             this.estado = estado;
-            this.horario = new Horario[7];
-            this.menu = new Dictionary<int, Produto>();
-            this.numProdutos = 0;
+        }
+
+        public int Id
+        {
+            get { return id; }
+            set { id = value; }
+        }
+
+        public String Descricao
+        {
+            get { return descricao; }
+            set { descricao = value; }
+        }
+
+        public String Nome
+        {
+            get { return nome; }
+            set { nome = value; }
+        }
+
+        public String Localidade
+        {
+            get { return localidade; }
+            set { localidade = value; }
+        }
+
+        public String CodigoPostal
+        {
+            get { return codigoPostal; }
+            set { codigoPostal = value; }
+        }
+
+        public String Rua
+        {
+            get { return rua; }
+            set { rua = value; }
         }
 
         public int Proprietario
@@ -58,8 +97,9 @@ namespace WhatsYummyApp.Models
 
         public Produto ConsultarProduto(int idProduto)
         {
-            if (menu.TryGetValue(idProduto, out Produto test)) return test;
-            else return menu[idProduto];
+            //if (menu.TryGetValue(idProduto, out Produto test)) return test;
+            //else 
+            return menu[idProduto];
         }
 
         public bool CheckHorario(DateTime hora, int dia)

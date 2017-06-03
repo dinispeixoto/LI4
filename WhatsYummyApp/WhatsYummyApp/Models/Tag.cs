@@ -17,6 +17,12 @@ namespace WhatsYummyApp.Models
             this.id = id;
         }
 
+        public int Id
+        {
+            get { return id; }
+            set { id = value; }
+        }
+
         public String Tipo
         {
             get { return tipo; }
@@ -27,12 +33,6 @@ namespace WhatsYummyApp.Models
         {
             get { return nome; }
             set { nome = value; }
-        }
-
-        public int Id
-        {
-            get { return id; }
-            set { id = value; }
         }
 
         public override bool Equals(Object obj)

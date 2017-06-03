@@ -18,5 +18,29 @@ namespace WhatsYummyApp.Models
             this.idUtilizador = idUtilizador;
             this.id = id;
         }
+
+        public int Id
+        {
+            get { return id; }
+            set { id = value; }
+        }
+
+        public float Classificacao
+        {
+            get { return classificacao; }
+            set { classificacao = value; }
+        }
+
+        public String Comentario
+        {
+            get { return comentario; }
+            set { comentario = value; }
+        }
+
+        public int IdUtilizador
+        {
+            get { return idUtilizador; }
+            set { idUtilizador = value; }
+        }
     }
 }
