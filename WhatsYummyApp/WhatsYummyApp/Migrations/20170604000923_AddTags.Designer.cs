@@ -8,9 +8,10 @@ using WhatsYummyApp.Models;
 namespace WhatsYummyApp.Migrations
 {
     [DbContext(typeof(WhatsYummyAppContext))]
-    partial class WhatsYummyAppContextModelSnapshot : ModelSnapshot
+    [Migration("20170604000923_AddTags")]
+    partial class AddTags
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")

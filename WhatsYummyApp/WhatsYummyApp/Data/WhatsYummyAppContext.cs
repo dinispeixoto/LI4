@@ -17,5 +17,9 @@ namespace WhatsYummyApp.Models
         public DbSet<WhatsYummyApp.Models.Estabelecimento> Estabelecimento { get; set; }
 
         public DbSet<WhatsYummyApp.Models.Produto> Produto { get; set; }
+
+        public DbSet<WhatsYummyApp.Models.Avaliacao> Avaliacao { get; set; }
+
+        public DbSet<WhatsYummyApp.Models.Tag> Tag { get; set; }
     }
 }

@@ -8,9 +8,10 @@ using WhatsYummyApp.Models;
 namespace WhatsYummyApp.Migrations
 {
     [DbContext(typeof(WhatsYummyAppContext))]
-    partial class WhatsYummyAppContextModelSnapshot : ModelSnapshot
+    [Migration("20170604000609_AddAvaliacoes")]
+    partial class AddAvaliacoes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")
@@ -70,20 +71,6 @@ namespace WhatsYummyApp.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Produto");
-                });
-
-            modelBuilder.Entity("WhatsYummyApp.Models.Tag", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Nome");
-
-                    b.Property<string>("Tipo");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Tag");
                 });
         }
     }

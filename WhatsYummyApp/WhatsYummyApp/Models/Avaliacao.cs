@@ -8,14 +8,18 @@ namespace WhatsYummyApp.Models
     {
         private float classificacao;
         private String comentario;
-        private int idUtilizador;
+        private int autor;
         private int id;
 
-        public Avaliacao(float classificacao, String comentario, int idUtilizador, int id)
+        public Avaliacao()
+        {
+        }
+
+        public Avaliacao(float classificacao, String comentario, int autor, int id)
         {
             this.classificacao = classificacao;
             this.comentario = comentario;
-            this.idUtilizador = idUtilizador;
+            this.autor = autor;
             this.id = id;
         }
 
@@ -37,10 +41,10 @@ namespace WhatsYummyApp.Models
             set { comentario = value; }
         }
 
-        public int IdUtilizador
+        public int Autor
         {
-            get { return idUtilizador; }
-            set { idUtilizador = value; }
+            get { return autor; }
+            set { autor = value; }
         }
     }
 }

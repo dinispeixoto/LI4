@@ -9,22 +9,22 @@ using WhatsYummyApp.Models;
 
 namespace WhatsYummyApp.Controllers
 {
-    public class ProdutosController : Controller
+    public class TagsController : Controller
     {
         private readonly WhatsYummyAppContext _context;
 
-        public ProdutosController(WhatsYummyAppContext context)
+        public TagsController(WhatsYummyAppContext context)
         {
             _context = context;    
         }
 
-        // GET: Produtoes
+        // GET: Tags
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Produto.ToListAsync());
+            return View(await _context.Tag.ToListAsync());
         }
 
-        // GET: Produtoes/Details/5
+        // GET: Tags/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -32,39 +32,39 @@ namespace WhatsYummyApp.Controllers
                 return NotFound();
             }
 
-            var produto = await _context.Produto
+            var tag = await _context.Tag
                 .SingleOrDefaultAsync(m => m.Id == id);
-            if (produto == null)
+            if (tag == null)
             {
                 return NotFound();
             }
 
-            return View(produto);
+            return View(tag);
         }
 
-        // GET: Produtoes/Create
+        // GET: Tags/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Produtoes/Create
+        // POST: Tags/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nome,Descricao,Preco")] Produto produto)
+        public async Task<IActionResult> Create([Bind("Id,Tipo,Nome")] Tag tag)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(produto);
+                _context.Add(tag);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            return View(produto);
+            return View(tag);
         }
 
-        // GET: Produtoes/Edit/5
+        // GET: Tags/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -72,22 +72,22 @@ namespace WhatsYummyApp.Controllers
                 return NotFound();
             }
 
-            var produto = await _context.Produto.SingleOrDefaultAsync(m => m.Id == id);
-            if (produto == null)
+            var tag = await _context.Tag.SingleOrDefaultAsync(m => m.Id == id);
+            if (tag == null)
             {
                 return NotFound();
             }
-            return View(produto);
+            return View(tag);
         }
 
-        // POST: Produtoes/Edit/5
+        // POST: Tags/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nome,Descricao,Preco")] Produto produto)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Tipo,Nome")] Tag tag)
         {
-            if (id != produto.Id)
+            if (id != tag.Id)
             {
                 return NotFound();
             }
@@ -96,12 +96,12 @@ namespace WhatsYummyApp.Controllers
             {
                 try
                 {
-                    _context.Update(produto);
+                    _context.Update(tag);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ProdutoExists(produto.Id))
+                    if (!TagExists(tag.Id))
                     {
                         return NotFound();
                     }
@@ -112,10 +112,10 @@ namespace WhatsYummyApp.Controllers
                 }
                 return RedirectToAction("Index");
             }
-            return View(produto);
+            return View(tag);
         }
 
-        // GET: Produtoes/Delete/5
+        // GET: Tags/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -123,30 +123,30 @@ namespace WhatsYummyApp.Controllers
                 return NotFound();
             }
 
-            var produto = await _context.Produto
+            var tag = await _context.Tag
                 .SingleOrDefaultAsync(m => m.Id == id);
-            if (produto == null)
+            if (tag == null)
             {
                 return NotFound();
             }
 
-            return View(produto);
+            return View(tag);
         }
 
-        // POST: Produtoes/Delete/5
+        // POST: Tags/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var produto = await _context.Produto.SingleOrDefaultAsync(m => m.Id == id);
-            _context.Produto.Remove(produto);
+            var tag = await _context.Tag.SingleOrDefaultAsync(m => m.Id == id);
+            _context.Tag.Remove(tag);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 
-        private bool ProdutoExists(int id)
+        private bool TagExists(int id)
         {
-            return _context.Produto.Any(e => e.Id == id);
+            return _context.Tag.Any(e => e.Id == id);
         }
     }
 }

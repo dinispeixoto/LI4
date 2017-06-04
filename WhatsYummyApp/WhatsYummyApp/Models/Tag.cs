@@ -10,6 +10,10 @@ namespace WhatsYummyApp.Models
         private String nome;
         private int id;
 
+        public Tag()
+        {
+        }
+
         public Tag(String tipo, String nome, int id)
         {
             this.tipo = tipo;

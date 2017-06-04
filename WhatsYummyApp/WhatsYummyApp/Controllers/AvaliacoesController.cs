@@ -9,22 +9,22 @@ using WhatsYummyApp.Models;
 
 namespace WhatsYummyApp.Controllers
 {
-    public class EstabelecimentoesController : Controller
+    public class AvaliacoesController : Controller
     {
         private readonly WhatsYummyAppContext _context;
 
-        public EstabelecimentoesController(WhatsYummyAppContext context)
+        public AvaliacoesController(WhatsYummyAppContext context)
         {
-            _context = context;  
+            _context = context;    
         }
 
-        // GET: Estabelecimentoes
+        // GET: Avaliacoes
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Estabelecimento.ToListAsync());
+            return View(await _context.Avaliacao.ToListAsync());
         }
 
-        // GET: Estabelecimentoes/Details/5
+        // GET: Avaliacoes/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -32,39 +32,39 @@ namespace WhatsYummyApp.Controllers
                 return NotFound();
             }
 
-            var estabelecimento = await _context.Estabelecimento
+            var avaliacao = await _context.Avaliacao
                 .SingleOrDefaultAsync(m => m.Id == id);
-            if (estabelecimento == null)
+            if (avaliacao == null)
             {
                 return NotFound();
             }
 
-            return View(estabelecimento);
+            return View(avaliacao);
         }
 
-        // GET: Estabelecimentoes/Create
+        // GET: Avaliacoes/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Estabelecimentoes/Create
+        // POST: Avaliacoes/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Descricao,Nome,Localidade,CodigoPostal,Rua,Proprietario,Estado")] Estabelecimento estabelecimento)
+        public async Task<IActionResult> Create([Bind("Id,Classificacao,Comentario,Autor")] Avaliacao avaliacao)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(estabelecimento);
+                _context.Add(avaliacao);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            return View(estabelecimento);
+            return View(avaliacao);
         }
 
-        // GET: Estabelecimentoes/Edit/5
+        // GET: Avaliacoes/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -72,22 +72,22 @@ namespace WhatsYummyApp.Controllers
                 return NotFound();
             }
 
-            var estabelecimento = await _context.Estabelecimento.SingleOrDefaultAsync(m => m.Id == id);
-            if (estabelecimento == null)
+            var avaliacao = await _context.Avaliacao.SingleOrDefaultAsync(m => m.Id == id);
+            if (avaliacao == null)
             {
                 return NotFound();
             }
-            return View(estabelecimento);
+            return View(avaliacao);
         }
 
-        // POST: Estabelecimentoes/Edit/5
+        // POST: Avaliacoes/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Descricao,Nome,Localidade,CodigoPostal,Rua,Proprietario,Estado")] Estabelecimento estabelecimento)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Classificacao,Comentario,Autor")] Avaliacao avaliacao)
         {
-            if (id != estabelecimento.Id)
+            if (id != avaliacao.Id)
             {
                 return NotFound();
             }
@@ -96,12 +96,12 @@ namespace WhatsYummyApp.Controllers
             {
                 try
                 {
-                    _context.Update(estabelecimento);
+                    _context.Update(avaliacao);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!EstabelecimentoExists(estabelecimento.Id))
+                    if (!AvaliacaoExists(avaliacao.Id))
                     {
                         return NotFound();
                     }
@@ -112,10 +112,10 @@ namespace WhatsYummyApp.Controllers
                 }
                 return RedirectToAction("Index");
             }
-            return View(estabelecimento);
+            return View(avaliacao);
         }
 
-        // GET: Estabelecimentoes/Delete/5
+        // GET: Avaliacoes/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -123,30 +123,30 @@ namespace WhatsYummyApp.Controllers
                 return NotFound();
             }
 
-            var estabelecimento = await _context.Estabelecimento
+            var avaliacao = await _context.Avaliacao
                 .SingleOrDefaultAsync(m => m.Id == id);
-            if (estabelecimento == null)
+            if (avaliacao == null)
             {
                 return NotFound();
             }
 
-            return View(estabelecimento);
+            return View(avaliacao);
         }
 
-        // POST: Estabelecimentoes/Delete/5
+        // POST: Avaliacoes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var estabelecimento = await _context.Estabelecimento.SingleOrDefaultAsync(m => m.Id == id);
-            _context.Estabelecimento.Remove(estabelecimento);
+            var avaliacao = await _context.Avaliacao.SingleOrDefaultAsync(m => m.Id == id);
+            _context.Avaliacao.Remove(avaliacao);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 
-        private bool EstabelecimentoExists(int id)
+        private bool AvaliacaoExists(int id)
         {
-            return _context.Estabelecimento.Any(e => e.Id == id);
+            return _context.Avaliacao.Any(e => e.Id == id);
         }
     }
 }
