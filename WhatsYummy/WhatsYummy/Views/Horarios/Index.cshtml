@@ -1,0 +1,41 @@
+@model IEnumerable<WhatsYummy.Models.Horario>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.HoraAbertura)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.HoraFecho)
+                </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.HoraAbertura)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HoraFecho)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Dia">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Dia">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Dia">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

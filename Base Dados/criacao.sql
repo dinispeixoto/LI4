@@ -2,29 +2,30 @@
 -- -----------------------------------------------------
 -- Schema mydb
 -- -----------------------------------------------------
-DROP DATABASE [WhatsYummy];
+
+DROP DATABASE [WhatsYummyDB];
 GO
 
-CREATE DATABASE [WhatsYummy];
+CREATE DATABASE [WhatsYummyDB];
 GO
 
-USE [WhatsYummy];
+USE [WhatsYummyDB];
 GO
 
-DROP TABLE [Utilizador]
-GO
+
+
 -- -----------------------------------------------------
 -- Table `mydb`.`Utilizador`
 -- -----------------------------------------------------
 CREATE TABLE [Utilizador] (
-  [ID] INT NOT NULL ,
+  [ID] INT IDENTITY(1,1) NOT NULL ,
   [Username] VARCHAR(64) NOT NULL,
   [Password] VARCHAR(64) NOT NULL,
   [Nome] VARCHAR(64) NOT NULL,
-  [DataNascimento] DATE NOT NULL,
-  [Foto] VARCHAR(256)  NULL,
+  [DataNascimento] DATE NULL,
+  [Foto] VARCHAR(256) NULL,
   [Email] VARCHAR(64) NOT NULL,
-  [Admin] SMALLINT NOT NULL,
+  [Admin] INT NOT NULL,
   PRIMARY KEY ([ID]))
 ;
 GO
@@ -33,12 +34,12 @@ GO
 -- Table `mydb`.`Estabelecimento`
 -- -----------------------------------------------------
 CREATE TABLE [Estabelecimento] (
-  [ID] INT NOT NULL,
+  [ID] INT IDENTITY(1,1) NOT NULL,
   [Nome] VARCHAR(64) NOT NULL,
   [CodigoPostal] VARCHAR(64) NOT NULL,
   [Localidade] VARCHAR(64) NOT NULL,
   [Rua] VARCHAR(64) NOT NULL,
-  [Utilizador] INT NOT NULL,
+  [Utilizador] INT NULL,
   [Estado] INT NOT NULL,
   PRIMARY KEY ([ID])
  ,
@@ -57,31 +58,31 @@ GO
 -- Table `mydb`.`Produto`
 -- -----------------------------------------------------
 CREATE TABLE [Produto] (
-  [ID] INT NOT NULL,
-  [Estabelecimento] INT NOT NULL,
+  [ID] INT IDENTITY(1,1) NOT NULL,
+  [EstabelecimentoId] INT NOT NULL,
   [Nome] VARCHAR(64) NOT NULL,
-  [Descriçao] VARCHAR(max) NOT NULL,
-  [Preço] DECIMAL(5,2) NOT NULL,
-  [Vistias] INT NOT NULL,
+  [Descricao] VARCHAR(max) NOT NULL,
+  [Preco] DECIMAL(5,2) NOT NULL,
+  [Visitias] INT NOT NULL,
   [Foto] VARCHAR(256) NULL,
-  PRIMARY KEY ([ID], [Estabelecimento])
+  PRIMARY KEY ([ID], [EstabelecimentoId])
  ,
   CONSTRAINT [fk_Produto_Estabelecimento1]
-    FOREIGN KEY ([Estabelecimento])
+    FOREIGN KEY ([EstabelecimentoId])
     REFERENCES [Estabelecimento] ([ID])
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ;
 GO
 
-CREATE INDEX [fk_Produto_Estabelecimento1_idx] ON [Produto] ([Estabelecimento] ASC);
+CREATE INDEX [fk_Produto_Estabelecimento1_idx] ON [Produto] ([EstabelecimentoId] ASC);
 GO
 
 -- -----------------------------------------------------
 -- Table `mydb`.`Tag`
 -- -----------------------------------------------------
 CREATE TABLE [Tag] (
-  [ID] INT NOT NULL,
+  [ID] INT IDENTITY(1,1) NOT NULL,
   [Tipo] VARCHAR(64) NOT NULL,
   [Nome] VARCHAR(64) NOT NULL,
   PRIMARY KEY ([ID]))
@@ -92,7 +93,7 @@ GO
 -- Table `mydb`.`Avaliacao`
 -- -----------------------------------------------------
 CREATE TABLE [Avaliacao] (
-  [ID] INT NOT NULL,
+  [ID] INT IDENTITY(1,1) NOT NULL,
   [Classificaçao] FLOAT NOT NULL,
   [Comentario] VARCHAR(150) NULL,
   [Utilizador] INT NOT NULL,
@@ -108,7 +109,7 @@ CREATE TABLE [Avaliacao] (
     ON UPDATE NO ACTION,
   CONSTRAINT [fk_Avaliacao_Produto1]
     FOREIGN KEY ([Produto] , [Estabelecimento])
-    REFERENCES [Produto] ([ID] , [Estabelecimento])
+    REFERENCES [Produto] ([ID] , [EstabelecimentoId])
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ;
@@ -138,7 +139,7 @@ CREATE TABLE [UtilizadorProduto] (
     ON UPDATE NO ACTION,
   CONSTRAINT [fk_UtilizadorProduto_Produto1]
     FOREIGN KEY ([Produto] , [Estabelecimento])
-    REFERENCES [Produto] ([ID] , [Estabelecimento])
+    REFERENCES [Produto] ([ID] , [EstabelecimentoId])
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ;
@@ -166,7 +167,7 @@ CREATE TABLE [ProdutoTag] (
     ON UPDATE NO ACTION,
   CONSTRAINT [fk_ProdutoTag_Produto1]
     FOREIGN KEY ([Produto] , [Estabelecimento])
-    REFERENCES [Produto] ([ID] , [Estabelecimento])
+    REFERENCES [Produto] ([ID] , [EstabelecimentoId])
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ;
@@ -208,8 +209,8 @@ GO
 CREATE TABLE [Horario] (
   [Dia] INT NOT NULL,
   [Estabelecimento] INT NOT NULL,
-  [Hora Abertura] TIME(0) NOT NULL,
-  [Hora Fecho] TIME(0) NOT NULL,
+  [HoraAbertura] TIME(0) NOT NULL,
+  [HoraFecho] TIME(0) NOT NULL,
   PRIMARY KEY ([Dia], [Estabelecimento]),
   CONSTRAINT [fk_Horario_Estabelecimento1]
     FOREIGN KEY ([Estabelecimento])
