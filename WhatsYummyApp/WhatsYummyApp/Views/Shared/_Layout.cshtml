@@ -5,20 +5,22 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<link rel="icon" type="images/png" href="~/images/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="images/png" href="~/images/favicon-32x32.png" sizes="32x32" />
     <link rel="icon" type="image/png" href="~/images/favicon-16x16.png" sizes="16x16" />
-
     <title>@ViewData["Title"] - Whats Yummy? </title>
 
-    <environment names="Development">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+	<environment names="Development">	
+        <link rel="stylesheet" href="../font-awesome/css/font-awesome.min.css">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/css/site.css" />
-		<link rel="stylesheet" href="~/css/simple-sidebar.css" />
+        <link rel="stylesheet" href="~/css/simple-sidebar.css" />
         <link rel="stylesheet" href="~/css/index.css" />
-    </environment>
+	</environment> 		
+    
 
-    <!-- Custom CSS -->
-    <link href="css/simple-sidebar.css" rel="stylesheet">
         
     <environment names="Staging,Production">
         <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -86,15 +88,32 @@
                 <div class="container">
 
                         <nav class="navbar navbar-inverse navbar-fixed-top">
-                            <div class="navbar-header">                             
-								<a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand navbar-title"> 
-                                    <span class="glyphicon glyphicon-home home-button-layout" aria-hidden="true"></span>
-								</a>
-                                <button type="button" class="navbar-toggle navbar-buttom-left" data-target="#menu-toggle" id="menu-toggle">
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                </button>
+                            <div class="navbar-header"> 
+								@{
+                                    if(ViewData["Username"]!=null){
+                                        <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand navbar-title"> 
+                                            <span class="glyphicon glyphicon-home home-button-layout" aria-hidden="true"></span>
+								        </a>
+								    }
+                                    else{
+                                        <a asp-area="" asp-controller="Account" asp-action="Login" class="navbar-brand navbar-title"> 
+                                            <span class="glyphicon glyphicon-home home-button-layout" aria-hidden="true"></span>
+                                        </a>
+								    }
+
+								}
+
+                                @{ 
+                                    if(ViewData["Username"]!=null){
+                                        <button type="button" class="navbar-toggle navbar-buttom-left" data-target="#menu-toggle" id="menu-toggle">
+                                            <span class="icon-bar"></span>
+                                            <span class="icon-bar"></span>
+                                            <span class="icon-bar"></span>
+                                        </button>
+                                    }
+                                }
+
+                                
                             </div>
                             <div class="navbar-collapse collapse">
                                 <ul class="nav navbar-nav">
@@ -102,7 +121,7 @@
                                     <li><a href="#about">About</a></li>
                                     <li><a href="#contact">Contact</a></li>
                                 </ul>
-								<!-- NÂO È USADO -->
+                                <!-- NÂO È USADO -->
                                 <div class="navbar-header navbar-right">
                                     <p class="navbar-text">
                                         <a href="#" class="navbar-link">Username</a>
@@ -142,12 +161,6 @@
                 <script src="~/js/site.min.js" asp-append-version="true"></script>
             </environment>
         </div>
-
-        <!-- jQuery -->
-        <script src="js/jquery.js"></script>
-
-        <!-- Bootstrap Core JavaScript -->
-        <script src="js/bootstrap.min.js"></script>
 
         <!-- Menu Toggle Script -->
         <script>

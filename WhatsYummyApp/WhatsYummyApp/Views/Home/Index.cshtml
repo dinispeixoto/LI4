@@ -6,8 +6,8 @@
 <!-- Page Content -->
 <div class="row">
     <div class="col-lg-12">
-		<h1 id="index_header"> Whats Yummy? </h1>
-	</div>
+        <h1 id="index_header"> What's Yummy? </h1>
+    </div>
 </div>
 
 <div class="row">
@@ -17,43 +17,52 @@
 </div>
 
 <div class="row">
-    <div class="col-lg-12 speech">
-        <input class="form-control input-lg main-search-bar" id="transcript" type="text" placeholder="O que deseja?">
-        <!-- Search Form -->
-		<img onclick="startDictation()" src="//i.imgur.com/cHidSVu.gif" />
-		
-		<style>
-		  .speech img {position: relative; float: right; width: 40px }
-		</style>
-
-
-		<!-- HTML5 Speech Recognition API -->
-		<script>
-		  function startDictation() {
-
-		    if (window.hasOwnProperty('webkitSpeechRecognition')) {
-
-		      var recognition = new webkitSpeechRecognition();
-
-		      recognition.continuous = false;
-		      recognition.interimResults = false;
-
-		      recognition.lang = "pt-PT";
-		      recognition.start();
-
-		      recognition.onresult = function(e) {
-		        document.getElementById('transcript').value
-		                                 = e.results[0][0].transcript;
-		        recognition.stop();
-		        document.getElementById('labnol').submit();
-		      };
-
-		      recognition.onerror = function(e) {
-		        recognition.stop();
-		      }
-
-		    }
-		  }
-		</script>
-    </div>
+	<div class="col-md-offset-3 col-md-6">
+	        <div class="input-group input-border">
+			    <input type="text" class="form-control input-lg main-search-bar" placeholder="O que deseja?" id="transcript">
+			    <span class="input-group-btn but-left">
+				    <button class="btn btn-secondary main-search-bar-button" type="button">
+					    <i class="fa fa-search" aria-hidden="true"></i>
+	                </button>
+	            </span>
+			    <span class="input-group-btn">
+					<button class="btn main-search-bar-button" type="button" onclick="startDictation()">
+						<i class="fa fa-microphone" aria-hidden="true"></i>
+					</button>
+			    </span>
+		    </div>
+	</div>
 </div>	
+
+<div class="row">
+    <div class="col-lg-12 speech">
+        <!-- HTML5 Speech Recognition API -->
+        <script>
+          function startDictation() {
+
+            if (window.hasOwnProperty('webkitSpeechRecognition')) {
+
+              var recognition = new webkitSpeechRecognition();
+
+              recognition.continuous = false;
+              recognition.interimResults = false;
+
+              recognition.lang = "pt-PT";
+              recognition.start();
+
+              recognition.onresult = function(e) {
+                document.getElementById('transcript').value
+                                         = e.results[0][0].transcript;
+                recognition.stop();
+                document.getElementById('labnol').submit();
+              };
+
+              recognition.onerror = function(e) {
+                recognition.stop();
+              }
+
+            }
+          }
+        </script>
+    </div>
+</div>  

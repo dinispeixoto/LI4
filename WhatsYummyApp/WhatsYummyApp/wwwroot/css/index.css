@@ -5,15 +5,50 @@
     margin-right: auto;
 }
 
-.main-search-bar {
-    margin-top: 50px;
+.input-border {
+    padding-left: 1px;
+    border: 1px solid black;
     border-radius: 20px;
-    margin-left: auto;
-    margin-right: auto;
+    font-size: 10px;
+    margin-top: 50px;
 }
 
 .navbar-header {
     float: none;
+}
+
+.input-border:hover {
+    border: 1.8px solid black;
+}
+
+.main-search-bar {
+    margin-right: 0 !important;
+    border-radius: 20px;
+    border: none;
+    width: 100% !important;
+}
+
+.main-search-bar:focus {
+    border: none !important;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0), 0 0 8px rgba(0, 0, 0, 0);
+}
+
+.main-search-bar-button {
+    background-color: transparent;
+    font-size: 15px;
+    margin-left: auto;
+}
+
+.main-search-bar-button:active{
+    border-radius: 10px;
+}
+
+.main-search-bar-button:hover {
+    font-size: 20px;
+}
+
+.main-search-bar-button:focus, button:active {
+    outline: none !important;
 }
 
 .navbar-buttom-left {
