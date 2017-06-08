@@ -18,9 +18,9 @@ namespace WhatsYummy.Models
         //public Estabelecimento Estabelecimento { get; set; }
 
         [Required]
-        public DateTime HoraAbertura { get; set; }
+        public TimeSpan HoraAbertura { get; set; }
         [Required]
-        public DateTime HoraFecho { get; set; }
+        public TimeSpan HoraFecho { get; set; }
 
         public Horario()
         {

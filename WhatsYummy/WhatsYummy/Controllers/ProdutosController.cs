@@ -57,7 +57,8 @@ namespace WhatsYummy.Controllers
         {
             if (ModelState.IsValid)
             {
-                //adicionar id do estab.
+                produto.Estabelecimento = 1;
+                produto.Visitas = 1;
                 _context.Add(produto);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");

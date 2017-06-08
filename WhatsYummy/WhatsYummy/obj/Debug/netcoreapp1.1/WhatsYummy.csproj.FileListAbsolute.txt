@@ -1,12 +1,3 @@
-C:/Users/Tr3s/Desktop/LI4/WhatsYummy/WhatsYummy/bin/Debug/netcoreapp1.1/WhatsYummy.deps.json
-C:/Users/Tr3s/Desktop/LI4/WhatsYummy/WhatsYummy/bin/Debug/netcoreapp1.1/WhatsYummy.runtimeconfig.json
-C:/Users/Tr3s/Desktop/LI4/WhatsYummy/WhatsYummy/bin/Debug/netcoreapp1.1/WhatsYummy.runtimeconfig.dev.json
-C:/Users/Tr3s/Desktop/LI4/WhatsYummy/WhatsYummy/bin/Debug/netcoreapp1.1/WhatsYummy.dll
-C:/Users/Tr3s/Desktop/LI4/WhatsYummy/WhatsYummy/bin/Debug/netcoreapp1.1/WhatsYummy.pdb
-C:/Users/Tr3s/Desktop/LI4/WhatsYummy/WhatsYummy/obj/Debug/netcoreapp1.1/WhatsYummy.csprojResolveAssemblyReference.cache
-C:/Users/Tr3s/Desktop/LI4/WhatsYummy/WhatsYummy/obj/Debug/netcoreapp1.1/WhatsYummy.AssemblyInfo.cs
-C:/Users/Tr3s/Desktop/LI4/WhatsYummy/WhatsYummy/obj/Debug/netcoreapp1.1/WhatsYummy.dll
-C:/Users/Tr3s/Desktop/LI4/WhatsYummy/WhatsYummy/obj/Debug/netcoreapp1.1/WhatsYummy.pdb
 /Users/dinispeixoto/Desktop/LI4/Parte III/LI4/WhatsYummy/WhatsYummy/bin/Debug/netcoreapp1.1/WhatsYummy.deps.json
 /Users/dinispeixoto/Desktop/LI4/Parte III/LI4/WhatsYummy/WhatsYummy/bin/Debug/netcoreapp1.1/WhatsYummy.runtimeconfig.json
 /Users/dinispeixoto/Desktop/LI4/Parte III/LI4/WhatsYummy/WhatsYummy/bin/Debug/netcoreapp1.1/WhatsYummy.runtimeconfig.dev.json
@@ -17,3 +8,12 @@ C:/Users/Tr3s/Desktop/LI4/WhatsYummy/WhatsYummy/obj/Debug/netcoreapp1.1/WhatsYum
 /Users/dinispeixoto/Desktop/LI4/Parte III/LI4/WhatsYummy/WhatsYummy/obj/Debug/netcoreapp1.1/WhatsYummy.AssemblyInfo.cs
 /Users/dinispeixoto/Desktop/LI4/Parte III/LI4/WhatsYummy/WhatsYummy/obj/Debug/netcoreapp1.1/WhatsYummy.dll
 /Users/dinispeixoto/Desktop/LI4/Parte III/LI4/WhatsYummy/WhatsYummy/obj/Debug/netcoreapp1.1/WhatsYummy.pdb
+C:\Users\Tr3s\Desktop\LI4\WhatsYummy\WhatsYummy\bin\Debug\netcoreapp1.1\WhatsYummy.deps.json
+C:\Users\Tr3s\Desktop\LI4\WhatsYummy\WhatsYummy\bin\Debug\netcoreapp1.1\WhatsYummy.runtimeconfig.json
+C:\Users\Tr3s\Desktop\LI4\WhatsYummy\WhatsYummy\bin\Debug\netcoreapp1.1\WhatsYummy.runtimeconfig.dev.json
+C:\Users\Tr3s\Desktop\LI4\WhatsYummy\WhatsYummy\bin\Debug\netcoreapp1.1\WhatsYummy.dll
+C:\Users\Tr3s\Desktop\LI4\WhatsYummy\WhatsYummy\bin\Debug\netcoreapp1.1\WhatsYummy.pdb
+C:\Users\Tr3s\Desktop\LI4\WhatsYummy\WhatsYummy\obj\Debug\netcoreapp1.1\WhatsYummy.AssemblyInfo.cs
+C:\Users\Tr3s\Desktop\LI4\WhatsYummy\WhatsYummy\obj\Debug\netcoreapp1.1\WhatsYummy.dll
+C:\Users\Tr3s\Desktop\LI4\WhatsYummy\WhatsYummy\obj\Debug\netcoreapp1.1\WhatsYummy.pdb
+C:\Users\Tr3s\Desktop\LI4\WhatsYummy\WhatsYummy\obj\Debug\netcoreapp1.1\WhatsYummy.csprojResolveAssemblyReference.cache

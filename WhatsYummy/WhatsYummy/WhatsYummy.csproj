@@ -37,6 +37,5 @@
   </ItemGroup>
   <ItemGroup>
     <Content Remove="_AppStart.cshtml" />
-    <Content Remove="Views\Home\Search.cshtml" />
   </ItemGroup>
 </Project>
