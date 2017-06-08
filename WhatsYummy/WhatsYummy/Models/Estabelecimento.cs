@@ -15,6 +15,7 @@ namespace WhatsYummy.Models
         [Required]
         public String Localidade { get; set; }
         [Required]
+        [Display(Name = "Código-Postal")]
         public String CodigoPostal { get; set; }
         [Required]
         public String Rua { get; set; }
@@ -25,6 +26,7 @@ namespace WhatsYummy.Models
         //public Utilizador Utilizador { get; set; }
         public int Estado { get; set; }
         [NotMapped]
+        [Display(Name = "Número de produtos")]
         public int NumProdutos { get; set; }
 
 		public virtual ICollection<Produto> Menu { get; set; }

@@ -19,9 +19,9 @@
 	<div class="col-md-offset-3 col-md-6">
 		<form action="Home/Search" method="POST">
 	        <div class="input-group input-border">
-			    <input type="text" name="search" class="form-control input-lg main-search-bar" placeholder="O que deseja?" id="transcript">
+			    <input type="text" name="search" class="form-control input-lg main-search-bar" placeholder="O que vai desejar?" id="transcript">
 			    <span class="input-group-btn but-left">
-				    <button class="btn btn-secondary main-search-bar-button" type="submit">
+				    <button class="btn btn-secondary main-search-bar-button" type="submit" onClick="return empty()">
 					    <i class="fa fa-search" aria-hidden="true"></i>
 	                </button>
 	            </span>
@@ -39,6 +39,15 @@
     <div class="col-lg-12 speech">
         <!-- HTML5 Speech Recognition API -->
         <script>
+
+			function empty() {
+			    var x;
+			    x = document.getElementById("transcript").value;
+			    if (x==0) {
+			        return false;
+			    };
+			}
+			
           function startDictation() {
 
             if (window.hasOwnProperty('webkitSpeechRecognition')) {

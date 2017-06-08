@@ -18,8 +18,10 @@ namespace WhatsYummy.Models
         //public Estabelecimento Estabelecimento { get; set; }
 
         [Required]
+        [Display(Name = "Hora de abertura")]
         public TimeSpan HoraAbertura { get; set; }
         [Required]
+        [Display(Name = "Hora de fecho")]
         public TimeSpan HoraFecho { get; set; }
 
         public Horario()

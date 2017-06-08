@@ -20,8 +20,10 @@ namespace WhatsYummy.Models
         [Required]
         public String Nome { get; set; }
         [Required]
+        [Display(Name = "Descrição")]
         public String Descricao { get; set; }
         [Required]
+        [Display(Name = "Preço")]
         public float Preco { get; set; }
         [NotMapped]
         public int Visitas { get; set; }

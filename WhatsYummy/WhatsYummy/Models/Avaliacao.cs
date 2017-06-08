@@ -31,8 +31,10 @@ namespace WhatsYummy.Models
 
 
         [Required]
+        [Display(Name = "Classificação")]
         public float Classificacao { get; set; }
         [Required]
+        [Display(Name = "Comentário")]
         public String Comentario { get; set; }
         [Required]
         public String Foto { get; set; }
