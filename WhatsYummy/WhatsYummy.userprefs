@@ -1,0 +1,14 @@
+﻿<Properties StartupConfiguration="{D0CA6153-B7BD-4FF7-8ADB-01B18A36113B}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="WhatsYummy/appsettings.json">
+    <Files>
+      <File FileName="WhatsYummy/appsettings.json" Line="9" Column="77" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.WhatsYummy PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MultiItemStartupConfigurations />
+</Properties>

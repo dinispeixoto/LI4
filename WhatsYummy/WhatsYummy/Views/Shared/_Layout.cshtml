@@ -1,15 +1,27 @@
-﻿@inject Microsoft.ApplicationInsights.AspNetCore.JavaScriptSnippet JavaScriptSnippet
+﻿
+@inject Microsoft.ApplicationInsights.AspNetCore.JavaScriptSnippet JavaScriptSnippet
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - WhatsYummy</title>
+    <link rel="icon" type="images/png" href="~/images/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="~/images/favicon-16x16.png" sizes="16x16" />
+    <title>@ViewData["Title"] - Whats Yummy? </title>
 
-    <environment names="Development">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+	<environment names="Development">	
+        <link rel="stylesheet" href="../font-awesome/css/font-awesome.min.css">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/css/site.css" />
-    </environment>
+        <link rel="stylesheet" href="~/css/simple-sidebar.css" />
+        <link rel="stylesheet" href="~/css/index.css" />
+	</environment> 		
+    
+
+        
     <environment names="Staging,Production">
         <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
               asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
@@ -19,55 +31,141 @@
     @Html.Raw(JavaScriptSnippet.FullScript)
 </head>
 <body>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">WhatsYummy</a>
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+        
+    <div id="wrapper">
+        <!-- Sidebar -->
+            <div id="sidebar-wrapper">  
+                <ul class="sidebar-nav">
+                    <li class="sidebar-brand">
+                        <a href="#">Sugestão diária</a> 
+                    </li>
+                    <div class="sugestion-avatar"> 
+                        <img src="~/images/food.png" class="img-circle" width="128" height="128" />
+                    </div>
+                    <li>
+                        <a href="#">Pedir uma sugestão</a>
+                    </li>
+                    <div class="username-avatar"> 
+                        <img src="~/images/avatar.png" class="img-circle" width="128" height="128" />
+                    </div>
+                    <li class="sidebar-brand">
+                        <a href="#">@ViewData["Username"]</a>
+                    </li>
+                    <li>
+                        <a href="#">Editar preferências</a>
+                    </li>
+                    <li>
+                        <a href="#">Favoritos</a>
+                    </li>
+                    <li>
+                        <a href="#">Visitas recentes</a>
+                    </li>
+                    <li>
+                        <a href="#">Gerir estabelecimentos</a>
+                    </li>
+                    <li>
+                        <a href="#">Terminar sessão</a>
+                    </li>
+                    <li>
+                        <p>&copy; 2017 - WhatsYummy </p>
+                    </li>
                 </ul>
             </div>
+        <!-- /#sidebar-wrapper -->   
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+
+                <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+  
+                    </div>
+                </div>
+            </div>
+                
+            <nav class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+
+                        <nav class="navbar navbar-inverse navbar-fixed-top">
+                            <div class="navbar-header"> 
+								@{
+
+                                    //if(ViewData["Username"]!=null){
+                                        <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand navbar-title"> 
+                                            <span class="glyphicon glyphicon-home home-button-layout" aria-hidden="true"></span>
+								        </a>
+
+                                
+                                        <button type="button" class="navbar-toggle navbar-buttom-left" data-target="#menu-toggle" id="menu-toggle">
+                                            <span class="icon-bar"></span>
+                                            <span class="icon-bar"></span>
+                                            <span class="icon-bar"></span>
+                                        </button>
+								}
+
+                                
+                            </div>
+                            <div class="navbar-collapse collapse">
+                                <ul class="nav navbar-nav">
+                                    <li class="active"><a href="#">Home</a></li>
+                                    <li><a href="#about">About</a></li>
+                                    <li><a href="#contact">Contact</a></li>
+                                </ul>
+                                <!-- NÂO È USADO -->
+                                <div class="navbar-header navbar-right">
+                                    <p class="navbar-text">
+                                        <a href="#" class="navbar-link">Username</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </nav>     
+                </div>
+            </nav>
+
+            <div class="container body-content">
+                @RenderBody()
+                <hr />
+                <footer>
+                    <p>&copy; 2017 - WhatsYummy, NorthMobile. </p> 
+                </footer>
+            </div>
+
+            <environment names="Development">
+                <script src="~/lib/jquery/dist/jquery.js"></script>
+                <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+                <script src="~/js/site.js" asp-append-version="true"></script>
+            </environment>
+            <environment names="Staging,Production">
+                <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
+                        asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                        asp-fallback-test="window.jQuery"
+                        crossorigin="anonymous"
+                        integrity="sha384-K+ctZQ+LL8q6tP7I94W+qzQsfRV2a+AfHIi9k8z8l9ggpc8X+Ytst4yBo/hH+8Fk">
+                </script>
+                <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
+                        asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                        asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+                        crossorigin="anonymous"
+                        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
+                </script>
+                <script src="~/js/site.min.js" asp-append-version="true"></script>
+            </environment>
         </div>
-    </nav>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; 2017 - WhatsYummy</p>
-        </footer>
+
+        <!-- Menu Toggle Script -->
+        <script>
+        $("#menu-toggle").click(function(e) {
+            e.preventDefault();
+            $("#wrapper").toggleClass("toggled");
+        });
+        </script>   
+
+        @RenderSection("Scripts", required: false)
+        <!-- /#page-content-wrapper -->
+
     </div>
-
-    <environment names="Development">
-        <script src="~/lib/jquery/dist/jquery.js"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-        <script src="~/js/site.js" asp-append-version="true"></script>
-    </environment>
-    <environment names="Staging,Production">
-        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
-                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
-                asp-fallback-test="window.jQuery"
-                crossorigin="anonymous"
-                integrity="sha384-K+ctZQ+LL8q6tP7I94W+qzQsfRV2a+AfHIi9k8z8l9ggpc8X+Ytst4yBo/hH+8Fk">
-        </script>
-        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
-                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
-                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
-                crossorigin="anonymous"
-                integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
-        </script>
-        <script src="~/js/site.min.js" asp-append-version="true"></script>
-    </environment>
-
-    @RenderSection("Scripts", required: false)
+    <!-- /#wrapper -->
+            
 </body>
 </html>
