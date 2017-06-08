@@ -14,10 +14,15 @@ namespace WhatsYummyApp.Controllers
 			return View();
 		}
 
-		public IActionResult About(string name)
+		public IActionResult About()
 		{
-			ViewData["Username"] = "Hello " + name;
+			return View();
+		}
 
+        [HttpPost]
+		public IActionResult About(string search_input)
+		{
+			ViewData["search_input"] = search_input;
 			return View();
 		}
 

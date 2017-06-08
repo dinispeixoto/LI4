@@ -14,6 +14,8 @@ namespace WhatsYummy.Models
         {
         }
 
+        public Utilizador LoggedUser { get; set; }
+
         public DbSet<WhatsYummy.Models.Utilizador> Utilizador { get; set; }
 
         public DbSet<WhatsYummy.Models.Estabelecimento> Estabelecimento { get; set; }

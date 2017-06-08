@@ -17,10 +17,11 @@
 
 <div class="row">
 	<div class="col-md-offset-3 col-md-6">
+		<form action="Home/About" method="POST">
 	        <div class="input-group input-border">
-			    <input type="text" class="form-control input-lg main-search-bar" placeholder="O que deseja?" id="transcript">
+			    <input type="text" name="search_input" class="form-control input-lg main-search-bar" placeholder="O que deseja?" id="transcript">
 			    <span class="input-group-btn but-left">
-				    <button class="btn btn-secondary main-search-bar-button" type="button">
+				    <button class="btn btn-secondary main-search-bar-button" type="submit">
 					    <i class="fa fa-search" aria-hidden="true"></i>
 	                </button>
 	            </span>
@@ -30,6 +31,7 @@
 					</button>
 			    </span>
 		    </div>
+		</form>
 	</div>
 </div>	
 

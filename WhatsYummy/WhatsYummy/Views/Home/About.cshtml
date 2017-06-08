@@ -1,7 +1,13 @@
-﻿@{
+﻿
+@{
     ViewData["Title"] = "About";
 }
-<h2>@ViewData["Title"].</h2>
-<h3>@ViewData["Message"]</h3>
 
-<p>Use this area to provide additional information.</p>
+@{
+
+    for (int i = 1; i <= 5; i++)
+    {
+        <p> @ViewData["search_input"] </p>
+    }
+
+}

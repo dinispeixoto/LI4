@@ -64,7 +64,7 @@ namespace WhatsYummy.Models
 		public string ConfirmPassword { get; set; }
 	}
 
-	public class LoginViewModel
+	public class LoginModel
 	{
 		[Required]
 		[Display(Name = "Nome de Utilizador")]

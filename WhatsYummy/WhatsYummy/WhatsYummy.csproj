@@ -26,5 +26,17 @@
   <ItemGroup>
     <Compile Remove="Models\UtilizadoresViewModels\CreateViewModel.cs" />
     <Compile Remove="wwwroot\_AppStart.cs" />
+    <Compile Remove="Services\IEmailSender.cs" />
+    <Compile Remove="Services\ISmsSender.cs" />
+    <Compile Remove="Services\MessageServices.cs" />
+    <Compile Remove="Models\HomeController.cs" />
+    <Compile Remove="Models\Home.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Views\Home\EmptyHTMLFile.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Remove="_AppStart.cshtml" />
+    <Content Remove="Views\Home\Search.cshtml" />
   </ItemGroup>
 </Project>

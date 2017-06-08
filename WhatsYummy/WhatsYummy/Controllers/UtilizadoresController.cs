@@ -51,10 +51,12 @@ namespace WhatsYummy.Controllers
         // POST: Utilizadores/Login
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(CreateModel model)
+        public async Task<IActionResult> Login(LoginModel model)
         {
             if (ModelState.IsValid)
             {
+                string username = model.UserName;
+
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
@@ -86,7 +88,7 @@ namespace WhatsYummy.Controllers
                 utilizador.Admin = 1;
                 _context.Add(utilizador);
 				await _context.SaveChangesAsync();
-				return RedirectToAction("Login");
+				return RedirectToAction("Index");
             }
             return View(model);
         }
