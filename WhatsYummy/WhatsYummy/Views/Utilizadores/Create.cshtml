@@ -1,16 +1,31 @@
-@model WhatsYummy.Models.Utilizador
+@model WhatsYummy.Models.CreateModel
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Registo";
 }
 
-<h2>Create</h2>
+<h2>@ViewData["Title"]</h2>
 
-<form asp-action="Create">
+<form asp-controller="Utilizadores" asp-action="Create" method="post" class="form-horizontal">
     <div class="form-horizontal">
-        <h4>Utilizador</h4>
+        <h4>Regista-te já para poderes começar a usufruir da aplicação!</h4>
         <hr />
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div asp-validation-summary="All" class="text-danger"></div>
+		
+		<div class="form-group">
+            <label asp-for="Username" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Username" class="form-control" />
+                <span asp-validation-for="Username" class="text-danger"></span>
+            </div>
+        </div>
+		<div class="form-group">
+            <label asp-for="Nome" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Nome" class="form-control" />
+                <span asp-validation-for="Nome" class="text-danger"></span>
+            </div>
+        </div>
         <div class="form-group">
             <label asp-for="Email" class="col-md-2 control-label"></label>
             <div class="col-md-10">
@@ -25,28 +40,7 @@
                 <span asp-validation-for="DataNascimento" class="text-danger"></span>
             </div>
         </div>
-        <div class="form-group">
-            <label asp-for="Nome" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="Nome" class="form-control" />
-                <span asp-validation-for="Nome" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="Password" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="Password" class="form-control" />
-                <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="Username" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="Username" class="form-control" />
-                <span asp-validation-for="Username" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
+		<div class="form-group">
             <label asp-for="Foto" class="col-md-2 control-label"></label>
             <div class="col-md-10">
                 <input asp-for="Foto" class="form-control" />
@@ -54,16 +48,29 @@
             </div>
         </div>
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
+	        <label asp-for="Password" class="col-md-2 control-label"></label>
+	        <div class="col-md-10">
+	            <input asp-for="Password" class="form-control" />
+	            <span asp-validation-for="Password" class="text-danger"></span>
+	        </div>
+	    </div>
+
+		<div class="form-group">
+	        <label asp-for="ConfirmPassword" class="col-md-2 control-label"></label>
+	        <div class="col-md-10">
+	            <input asp-for="ConfirmPassword" class="form-control" />
+	            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+	        </div>
+	    </div>
+		
+        <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <button type="submit" class="btn btn-default">Registo</button>
+            <a asp-action="Index" class="btn btn-default">Cancelar</a>
         </div>
     </div>
+    </div>
 </form>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

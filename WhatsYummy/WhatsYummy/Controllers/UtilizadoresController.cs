@@ -53,17 +53,34 @@ namespace WhatsYummy.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Email,DataNascimento,Nome,Password,Username,Foto,Admin")] Utilizador utilizador)
+        public async Task<IActionResult> Create(CreateModel model)
         {
             if (ModelState.IsValid)
             {
-                utilizador.Admin =1;
+                Utilizador utilizador = new Utilizador();
+                utilizador.Email = model.Email;
+                utilizador.Nome = model.Nome;
+                utilizador.Password = model.Password;
+                utilizador.Username = model.Username;
+                utilizador.Admin = 1;
                 _context.Add(utilizador);
-                await _context.SaveChangesAsync();
-                return RedirectToAction("Index");
+				await _context.SaveChangesAsync();
+				return RedirectToAction("Index");
             }
-            return View(utilizador);
+            return View(model);
         }
+		/** versão antiga
+		 * public async Task<IActionResult> Create([Bind("Id,Email,DataNascimento,Nome,Password,Username,Foto,Admin")] Utilizador utilizador)
+		{
+			if (ModelState.IsValid)
+			{
+				utilizador.Admin = 1;
+				_context.Add(utilizador);
+				await _context.SaveChangesAsync();
+				return RedirectToAction("Index");
+			}
+			return View(utilizador);
+		}**/
 
         // GET: Utilizadores/Edit/5
         public async Task<IActionResult> Edit(int? id)

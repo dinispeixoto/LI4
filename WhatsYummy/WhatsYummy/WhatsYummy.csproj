@@ -23,4 +23,7 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Remove="Models\UtilizadoresViewModels\CreateViewModel.cs" />
+  </ItemGroup>
 </Project>

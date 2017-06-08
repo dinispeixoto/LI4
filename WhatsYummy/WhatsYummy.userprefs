@@ -1,7 +1,9 @@
 ﻿<Properties StartupConfiguration="{D0CA6153-B7BD-4FF7-8ADB-01B18A36113B}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="WhatsYummy/appsettings.json">
+  <MonoDevelop.Ide.Workbench ActiveDocument="WhatsYummy/Views/Utilizadores/Create.cshtml">
     <Files>
-      <File FileName="WhatsYummy/appsettings.json" Line="9" Column="77" />
+      <File FileName="WhatsYummy/Models/Utilizador.cs" Line="13" Column="11" />
+      <File FileName="WhatsYummy/Controllers/UtilizadoresController.cs" Line="57" Column="10" />
+      <File FileName="WhatsYummy/Views/Utilizadores/Create.cshtml" Line="1" Column="36" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
