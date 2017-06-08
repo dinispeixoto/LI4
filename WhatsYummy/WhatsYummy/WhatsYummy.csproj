@@ -25,5 +25,6 @@
 
   <ItemGroup>
     <Compile Remove="Models\UtilizadoresViewModels\CreateViewModel.cs" />
+    <Compile Remove="wwwroot\_AppStart.cs" />
   </ItemGroup>
 </Project>

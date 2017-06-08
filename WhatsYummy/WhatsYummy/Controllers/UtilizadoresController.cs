@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+
 using WhatsYummy.Models;
 
 namespace WhatsYummy.Controllers
@@ -42,8 +43,28 @@ namespace WhatsYummy.Controllers
             return View(utilizador);
         }
 
-        // GET: Utilizadores/Create
-        public IActionResult Create()
+        // GET: Utilizadores/Login
+        public IActionResult Login(){
+            return View();
+        }
+
+        // POST: Utilizadores/Login
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login(CreateModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+
+            return View(model);
+        }
+
+
+		// GET: Utilizadores/Create
+		public IActionResult Create()
         {
             return View();
         }
@@ -65,22 +86,10 @@ namespace WhatsYummy.Controllers
                 utilizador.Admin = 1;
                 _context.Add(utilizador);
 				await _context.SaveChangesAsync();
-				return RedirectToAction("Index");
+				return RedirectToAction("Login");
             }
             return View(model);
         }
-		/** versão antiga
-		 * public async Task<IActionResult> Create([Bind("Id,Email,DataNascimento,Nome,Password,Username,Foto,Admin")] Utilizador utilizador)
-		{
-			if (ModelState.IsValid)
-			{
-				utilizador.Admin = 1;
-				_context.Add(utilizador);
-				await _context.SaveChangesAsync();
-				return RedirectToAction("Index");
-			}
-			return View(utilizador);
-		}**/
 
         // GET: Utilizadores/Edit/5
         public async Task<IActionResult> Edit(int? id)
