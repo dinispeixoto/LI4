@@ -1,10 +1,5 @@
 ﻿<Properties StartupConfiguration="{D0CA6153-B7BD-4FF7-8ADB-01B18A36113B}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="WhatsYummy/Views/Home/Search.cshtml">
-    <Files>
-      <File FileName="WhatsYummy/Views/Home/About.cshtml" Line="6" Column="8" />
-      <File FileName="WhatsYummy/Views/Home/Search.cshtml" Line="13" Column="65" />
-    </Files>
-  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.ItemProperties.WhatsYummy PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
