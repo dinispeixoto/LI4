@@ -1,82 +1,52 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-
+using System.Net;
+using System.Web;
+using System.Web.Mvc;
 using WhatsYummy.Models;
 
 namespace WhatsYummy.Controllers
 {
     public class UtilizadoresController : Controller
     {
-        private readonly WhatsYummyContext _context;
-
-        public UtilizadoresController(WhatsYummyContext context)
-        {
-            _context = context;    
-        }
+        private WhatsYummyDBEntities db = new WhatsYummyDBEntities();
 
         // GET: Utilizadores
-        public async Task<IActionResult> Index()
+        public ActionResult Index()
         {
-            return View(await _context.Utilizador.ToListAsync());
+            return View(db.Utilizador.ToList());
         }
 
         // GET: Utilizadores/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public ActionResult Details(int? id)
         {
             if (id == null)
             {
-                return NotFound();
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
-            var utilizador = await _context.Utilizador
-                .SingleOrDefaultAsync(m => m.Id == id);
+            Utilizador utilizador = db.Utilizador.Find(id);
             if (utilizador == null)
             {
-                return NotFound();
+                return HttpNotFound();
             }
-
             return View(utilizador);
         }
 
-        // GET: Utilizadores/Login
-        public IActionResult Login(){
-            return View();
-        }
-
-        // POST: Utilizadores/Login
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                string username = model.UserName;
-
-                await _context.SaveChangesAsync();
-                return RedirectToAction("Index");
-            }
-
-            return View(model);
-        }
-
-
-		// GET: Utilizadores/Create
-		public IActionResult Create()
+        // GET: Utilizadores/Create
+        public ActionResult Create()
         {
             return View();
         }
 
         // POST: Utilizadores/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
+        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(CreateModel model)
+        public ActionResult Create(CreateModel model)
         {
             if (ModelState.IsValid)
             {
@@ -86,96 +56,80 @@ namespace WhatsYummy.Controllers
                 utilizador.Password = model.Password;
                 utilizador.Username = model.Username;
                 utilizador.Admin = 1;
-                _context.Add(utilizador);
-				await _context.SaveChangesAsync();
-				return RedirectToAction("Index");
+                db.Utilizador.Add(utilizador);
+                db.SaveChanges();
+                return RedirectToAction("Index");
             }
+
             return View(model);
         }
 
+    
+
         // GET: Utilizadores/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public ActionResult Edit(int? id)
         {
             if (id == null)
             {
-                return NotFound();
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
-            var utilizador = await _context.Utilizador.SingleOrDefaultAsync(m => m.Id == id);
+            Utilizador utilizador = db.Utilizador.Find(id);
             if (utilizador == null)
             {
-                return NotFound();
+                return HttpNotFound();
             }
             return View(utilizador);
         }
 
         // POST: Utilizadores/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
+        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Email,DataNascimento,Nome,Password,Username,Foto,Admin")] Utilizador utilizador)
+        public ActionResult Edit([Bind(Include = "ID,Username,Password,Nome,DataNascimento,Foto,Email,Admin")] Utilizador utilizador)
         {
-            if (id != utilizador.Id)
-            {
-                return NotFound();
-            }
-
             if (ModelState.IsValid)
             {
-                try
-                {
-                    _context.Update(utilizador);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!UtilizadorExists(utilizador.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                db.Entry(utilizador).State = EntityState.Modified;
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(utilizador);
         }
 
         // GET: Utilizadores/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public ActionResult Delete(int? id)
         {
             if (id == null)
             {
-                return NotFound();
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
-            var utilizador = await _context.Utilizador
-                .SingleOrDefaultAsync(m => m.Id == id);
+            Utilizador utilizador = db.Utilizador.Find(id);
             if (utilizador == null)
             {
-                return NotFound();
+                return HttpNotFound();
             }
-
             return View(utilizador);
         }
 
         // POST: Utilizadores/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int id)
         {
-            var utilizador = await _context.Utilizador.SingleOrDefaultAsync(m => m.Id == id);
-            _context.Utilizador.Remove(utilizador);
-            await _context.SaveChangesAsync();
+            Utilizador utilizador = db.Utilizador.Find(id);
+            db.Utilizador.Remove(utilizador);
+            db.SaveChanges();
             return RedirectToAction("Index");
         }
 
-        private bool UtilizadorExists(int id)
+        protected override void Dispose(bool disposing)
         {
-            return _context.Utilizador.Any(e => e.Id == id);
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
 }

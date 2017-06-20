@@ -1,7 +1,7 @@
-@model WhatsYummy.Models.Avaliacao
+﻿@model WhatsYummy.Models.Avaliacao
 
 @{
-    ViewData["Title"] = "Details";
+    ViewBag.Title = "Details";
 }
 
 <h2>Details</h2>
@@ -11,26 +11,48 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Classificacao)
+            @Html.DisplayNameFor(model => model.Classificaçao)
         </dt>
+
         <dd>
-            @Html.DisplayFor(model => model.Classificacao)
+            @Html.DisplayFor(model => model.Classificaçao)
         </dd>
+
         <dt>
             @Html.DisplayNameFor(model => model.Comentario)
         </dt>
+
         <dd>
             @Html.DisplayFor(model => model.Comentario)
         </dd>
+
         <dt>
             @Html.DisplayNameFor(model => model.Foto)
         </dt>
+
         <dd>
             @Html.DisplayFor(model => model.Foto)
         </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Produto.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Produto.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Utilizador.Username)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Utilizador.Username)
+        </dd>
+
     </dl>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

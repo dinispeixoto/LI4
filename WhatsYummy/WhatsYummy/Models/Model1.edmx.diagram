@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="5cba30d9e83e43b6bbea457a3e972314" Name="Diagram1">
+        <EntityTypeShape EntityType="WhatsYummyDBModel.Avaliacao" Width="1.5" PointX="7.5" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WhatsYummyDBModel.Estabelecimento" Width="1.5" PointX="7.5" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="WhatsYummyDBModel.Horario" Width="1.5" PointX="9.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WhatsYummyDBModel.Produto" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WhatsYummyDBModel.Tag" Width="1.5" PointX="3" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WhatsYummyDBModel.Utilizador" Width="1.5" PointX="5.25" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="WhatsYummyDBModel.UtilizadorProduto" Width="1.5" PointX="10.5" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="WhatsYummyDBModel.Visita" Width="1.5" PointX="12.75" PointY="5" IsExpanded="true" />
+        <AssociationConnector Association="WhatsYummyDBModel.fk_Avaliacao_Produto1" ManuallyRouted="false" />
+        <AssociationConnector Association="WhatsYummyDBModel.fk_Avaliacao_Utilizador1" ManuallyRouted="false" />
+        <AssociationConnector Association="WhatsYummyDBModel.fk_Estabelecimento_Utilizador1" ManuallyRouted="false" />
+        <AssociationConnector Association="WhatsYummyDBModel.fk_Horario_Estabelecimento1" ManuallyRouted="false" />
+        <AssociationConnector Association="WhatsYummyDBModel.fk_Produto_Estabelecimento1" ManuallyRouted="false" />
+        <AssociationConnector Association="WhatsYummyDBModel.fk_UtilizadorProduto_Produto1" ManuallyRouted="false" />
+        <AssociationConnector Association="WhatsYummyDBModel.fk_UtilizadorProduto_Utilizador" ManuallyRouted="false" />
+        <AssociationConnector Association="WhatsYummyDBModel.fk_Visita_UtilizadorProduto1" ManuallyRouted="false" />
+        <AssociationConnector Association="WhatsYummyDBModel.Preferencia" ManuallyRouted="false" />
+        <AssociationConnector Association="WhatsYummyDBModel.ProdutoTag" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

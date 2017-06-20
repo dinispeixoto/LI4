@@ -1,7 +1,7 @@
-@model WhatsYummy.Models.Utilizador
+﻿@model WhatsYummy.Models.Utilizador
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewBag.Title = "Delete";
 }
 
 <h2>Delete</h2>
@@ -11,55 +11,70 @@
     <h4>Utilizador</h4>
     <hr />
     <dl class="dl-horizontal">
-        <input type="hidden" asp-for="Id" />
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.DataNascimento)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.DataNascimento)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Nome)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Nome)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Password)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Password)
-        </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Username)
         </dt>
+
         <dd>
             @Html.DisplayFor(model => model.Username)
         </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Password)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Password)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DataNascimento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataNascimento)
+        </dd>
+
         <dt>
             @Html.DisplayNameFor(model => model.Foto)
         </dt>
+
         <dd>
             @Html.DisplayFor(model => model.Foto)
         </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
         <dt>
             @Html.DisplayNameFor(model => model.Admin)
         </dt>
+
         <dd>
             @Html.DisplayFor(model => model.Admin)
         </dd>
+
     </dl>
-    
-    <form asp-action="Delete">
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
         <div class="form-actions no-color">
             <input type="submit" value="Delete" class="btn btn-default" /> |
-            <a asp-action="Index">Back to List</a>
+            @Html.ActionLink("Back to List", "Index")
         </div>
-    </form>
+    }
 </div>

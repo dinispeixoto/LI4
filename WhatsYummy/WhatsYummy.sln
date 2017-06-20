@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26430.12
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhatsYummy", "WhatsYummy\WhatsYummy.csproj", "{D0CA6153-B7BD-4FF7-8ADB-01B18A36113B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhatsYummy", "WhatsYummy\WhatsYummy.csproj", "{F6E419D4-DF01-453B-9940-8B5E769CA3FB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D0CA6153-B7BD-4FF7-8ADB-01B18A36113B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D0CA6153-B7BD-4FF7-8ADB-01B18A36113B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D0CA6153-B7BD-4FF7-8ADB-01B18A36113B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D0CA6153-B7BD-4FF7-8ADB-01B18A36113B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6E419D4-DF01-453B-9940-8B5E769CA3FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6E419D4-DF01-453B-9940-8B5E769CA3FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6E419D4-DF01-453B-9940-8B5E769CA3FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6E419D4-DF01-453B-9940-8B5E769CA3FB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

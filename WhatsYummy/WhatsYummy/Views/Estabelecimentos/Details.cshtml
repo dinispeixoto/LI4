@@ -1,60 +1,105 @@
-@model WhatsYummy.Models.Estabelecimento
+﻿@model WhatsYummy.Models.Estabelecimento
 
 @{
-    ViewData["Title"] = "Details";
+    ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>Informações do Estabelecimento</h2>
 
 <div>
-    <h4>Estabelecimento</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Descricao)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Descricao)
-        </dd>
-        <dt>
             @Html.DisplayNameFor(model => model.Nome)
         </dt>
+
         <dd>
             @Html.DisplayFor(model => model.Nome)
         </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Localidade)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Localidade)
-        </dd>
+
         <dt>
             @Html.DisplayNameFor(model => model.CodigoPostal)
         </dt>
+
         <dd>
             @Html.DisplayFor(model => model.CodigoPostal)
         </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Localidade)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Localidade)
+        </dd>
+
         <dt>
             @Html.DisplayNameFor(model => model.Rua)
         </dt>
+
         <dd>
             @Html.DisplayFor(model => model.Rua)
         </dd>
+
         <dt>
             @Html.DisplayNameFor(model => model.Estado)
         </dt>
+
         <dd>
             @Html.DisplayFor(model => model.Estado)
         </dd>
+
         <dt>
-            @Html.DisplayNameFor(model => model.NumProdutos)
+            @Html.DisplayNameFor(model => model.Utilizador.Username)
         </dt>
+
         <dd>
-            @Html.DisplayFor(model => model.NumProdutos)
+            @Html.DisplayFor(model => model.Utilizador.Username)
         </dd>
     </dl>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+<h4>Horário</h4>
+<table class="table">
+    <tr>
+        <th>
+            Dia
+        </th>
+        <th>
+            Hora de Abertura
+        </th>
+        <th>
+            Hora de Fecho
+        </th>
+    </tr>
+    @foreach (var item in Model.Horario)
+    {
+        <tr>
+            <td>
+                @{
+                    int diaNum = item.Dia;
+                    switch (diaNum)
+                    {
+                        case 1: <text>Segunda-feira</text> break;
+                        case 2: <text>Terça-feira</text> break;
+                        case 3: <text>Quarta-feira</text> break;
+                        case 4: <text>Quinta-feira</text> break;
+                        case 5: <text>Sexta-feira</text> break;
+                        case 6: <text>Sábado</text> break;
+                        case 7: <text>Domingo</text> break;
+                        
+                    }
+                 }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HoraAbertura)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HoraFecho)
+            </td>
+        </tr>
+    }
+</table>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>

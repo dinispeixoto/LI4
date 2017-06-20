@@ -1,154 +1,132 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
+using System.Net;
+using System.Web;
+using System.Web.Mvc;
 using WhatsYummy.Models;
 
 namespace WhatsYummy.Controllers
 {
     public class ProdutosController : Controller
     {
-        private readonly WhatsYummyContext _context;
-
-        public ProdutosController(WhatsYummyContext context)
-        {
-            _context = context;    
-        }
+        private WhatsYummyDBEntities db = new WhatsYummyDBEntities();
 
         // GET: Produtos
-        public async Task<IActionResult> Index()
+        public ActionResult Index()
         {
-            return View(await _context.Produto.ToListAsync());
+            var produto = db.Produto.Include(p => p.Estabelecimento);
+            return View(produto.ToList());
         }
 
         // GET: Produtos/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public ActionResult Details(int? id)
         {
             if (id == null)
             {
-                return NotFound();
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
-            var produto = await _context.Produto
-                .SingleOrDefaultAsync(m => m.Id == id);
+            Produto produto = db.Produto.Find(id);
             if (produto == null)
             {
-                return NotFound();
+                return HttpNotFound();
             }
-
             return View(produto);
         }
 
         // GET: Produtos/Create
-        public IActionResult Create()
+        public ActionResult Create()
         {
+            ViewBag.EstabelecimentoId = new SelectList(db.Estabelecimento, "ID", "Nome");
             return View();
         }
 
         // POST: Produtos/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
+        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nome,Descricao,Preco,Foto")] Produto produto)
+        public ActionResult Create([Bind(Include = "ID,EstabelecimentoId,Nome,Descricao,Preco,Visitas,Foto")] Produto produto)
         {
             if (ModelState.IsValid)
             {
-                produto.Estabelecimento = 1;
-                produto.Visitas = 1;
-                _context.Add(produto);
-                await _context.SaveChangesAsync();
+                db.Produto.Add(produto);
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
+            ViewBag.EstabelecimentoId = new SelectList(db.Estabelecimento, "ID", "Nome", produto.EstabelecimentoId);
             return View(produto);
         }
 
         // GET: Produtos/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public ActionResult Edit(int? id)
         {
             if (id == null)
             {
-                return NotFound();
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
-            var produto = await _context.Produto.SingleOrDefaultAsync(m => m.Id == id);
+            Produto produto = db.Produto.Find(id);
             if (produto == null)
             {
-                return NotFound();
+                return HttpNotFound();
             }
+            ViewBag.EstabelecimentoId = new SelectList(db.Estabelecimento, "ID", "Nome", produto.EstabelecimentoId);
             return View(produto);
         }
 
         // POST: Produtos/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
+        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nome,Descricao,Preco,Foto")] Produto produto)
+        public ActionResult Edit([Bind(Include = "ID,EstabelecimentoId,Nome,Descricao,Preco,Visitas,Foto")] Produto produto)
         {
-            if (id != produto.Id)
-            {
-                return NotFound();
-            }
-
             if (ModelState.IsValid)
             {
-                try
-                {
-                    _context.Update(produto);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ProdutoExists(produto.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                db.Entry(produto).State = EntityState.Modified;
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.EstabelecimentoId = new SelectList(db.Estabelecimento, "ID", "Nome", produto.EstabelecimentoId);
             return View(produto);
         }
 
         // GET: Produtos/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public ActionResult Delete(int? id)
         {
             if (id == null)
             {
-                return NotFound();
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
-            var produto = await _context.Produto
-                .SingleOrDefaultAsync(m => m.Id == id);
+            Produto produto = db.Produto.Find(id);
             if (produto == null)
             {
-                return NotFound();
+                return HttpNotFound();
             }
-
             return View(produto);
         }
 
         // POST: Produtos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int id)
         {
-            var produto = await _context.Produto.SingleOrDefaultAsync(m => m.Id == id);
-            _context.Produto.Remove(produto);
-            await _context.SaveChangesAsync();
+            Produto produto = db.Produto.Find(id);
+            db.Produto.Remove(produto);
+            db.SaveChanges();
             return RedirectToAction("Index");
         }
 
-        private bool ProdutoExists(int id)
+        protected override void Dispose(bool disposing)
         {
-            return _context.Produto.Any(e => e.Id == id);
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
 }

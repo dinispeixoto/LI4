@@ -1,0 +1,327 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="WhatsYummyDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Avaliacao">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Classificaçao" Type="float" Nullable="false" />
+    <Property Name="Comentario" Type="varchar" MaxLength="150" />
+    <Property Name="UtilizadorId" Type="int" Nullable="false" />
+    <Property Name="ProdutoId" Type="int" Nullable="false" />
+    <Property Name="EstabelecimentoId" Type="int" Nullable="false" />
+    <Property Name="Foto" Type="varchar" MaxLength="256" />
+  </EntityType>
+  <EntityType Name="Estabelecimento">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nome" Type="varchar" MaxLength="64" Nullable="false" />
+    <Property Name="CodigoPostal" Type="varchar" MaxLength="64" Nullable="false" />
+    <Property Name="Localidade" Type="varchar" MaxLength="64" Nullable="false" />
+    <Property Name="Rua" Type="varchar" MaxLength="64" Nullable="false" />
+    <Property Name="UtilizadorId" Type="int" />
+    <Property Name="Estado" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Horario">
+    <Key>
+      <PropertyRef Name="Dia" />
+      <PropertyRef Name="EstabelecimentoId" />
+    </Key>
+    <Property Name="Dia" Type="int" Nullable="false" />
+    <Property Name="EstabelecimentoId" Type="int" Nullable="false" />
+    <Property Name="HoraAbertura" Type="time" Precision="0" Nullable="false" />
+    <Property Name="HoraFecho" Type="time" Precision="0" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Preferencia">
+    <Key>
+      <PropertyRef Name="UtilizadorId" />
+      <PropertyRef Name="TagId" />
+    </Key>
+    <Property Name="UtilizadorId" Type="int" Nullable="false" />
+    <Property Name="TagId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Produto">
+    <Key>
+      <PropertyRef Name="ID" />
+      <PropertyRef Name="EstabelecimentoId" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EstabelecimentoId" Type="int" Nullable="false" />
+    <Property Name="Nome" Type="varchar" MaxLength="64" Nullable="false" />
+    <Property Name="Descricao" Type="varchar(max)" Nullable="false" />
+    <Property Name="Preco" Type="decimal" Precision="5" Scale="2" Nullable="false" />
+    <Property Name="Visitas" Type="int" Nullable="false" />
+    <Property Name="Foto" Type="varchar" MaxLength="256" />
+  </EntityType>
+  <EntityType Name="ProdutoTag">
+    <Key>
+      <PropertyRef Name="TagId" />
+      <PropertyRef Name="ProdutoId" />
+      <PropertyRef Name="EstabelecimentoId" />
+    </Key>
+    <Property Name="TagId" Type="int" Nullable="false" />
+    <Property Name="ProdutoId" Type="int" Nullable="false" />
+    <Property Name="EstabelecimentoId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Tag">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Tipo" Type="varchar" MaxLength="64" Nullable="false" />
+    <Property Name="Nome" Type="varchar" MaxLength="64" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Utilizador">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Username" Type="varchar" MaxLength="64" Nullable="false" />
+    <Property Name="Password" Type="varchar" MaxLength="64" Nullable="false" />
+    <Property Name="Nome" Type="varchar" MaxLength="64" Nullable="false" />
+    <Property Name="DataNascimento" Type="date" />
+    <Property Name="Foto" Type="varchar" MaxLength="256" />
+    <Property Name="Email" Type="varchar" MaxLength="64" Nullable="false" />
+    <Property Name="Admin" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UtilizadorProduto">
+    <Key>
+      <PropertyRef Name="UtilizadorId" />
+      <PropertyRef Name="ProdutoId" />
+      <PropertyRef Name="EstabelecimentoId" />
+    </Key>
+    <Property Name="UtilizadorId" Type="int" Nullable="false" />
+    <Property Name="ProdutoId" Type="int" Nullable="false" />
+    <Property Name="EstabelecimentoId" Type="int" Nullable="false" />
+    <Property Name="Favorito" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Visita">
+    <Key>
+      <PropertyRef Name="ID" />
+      <PropertyRef Name="UtlizadorId" />
+      <PropertyRef Name="ProdutoId" />
+      <PropertyRef Name="EstabelecimentoId" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="UtlizadorId" Type="int" Nullable="false" />
+    <Property Name="ProdutoId" Type="int" Nullable="false" />
+    <Property Name="EstabelecimentoId" Type="int" Nullable="false" />
+    <Property Name="Data" Type="datetime2" Precision="0" Nullable="false" />
+  </EntityType>
+  <Association Name="fk_Avaliacao_Produto1">
+    <End Role="Produto" Type="Self.Produto" Multiplicity="1" />
+    <End Role="Avaliacao" Type="Self.Avaliacao" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Produto">
+        <PropertyRef Name="ID" />
+        <PropertyRef Name="EstabelecimentoId" />
+      </Principal>
+      <Dependent Role="Avaliacao">
+        <PropertyRef Name="ProdutoId" />
+        <PropertyRef Name="EstabelecimentoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_Avaliacao_Utilizador1">
+    <End Role="Utilizador" Type="Self.Utilizador" Multiplicity="1" />
+    <End Role="Avaliacao" Type="Self.Avaliacao" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Utilizador">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Avaliacao">
+        <PropertyRef Name="UtilizadorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_Estabelecimento_Utilizador1">
+    <End Role="Utilizador" Type="Self.Utilizador" Multiplicity="0..1" />
+    <End Role="Estabelecimento" Type="Self.Estabelecimento" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Utilizador">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Estabelecimento">
+        <PropertyRef Name="UtilizadorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_Horario_Estabelecimento1">
+    <End Role="Estabelecimento" Type="Self.Estabelecimento" Multiplicity="1" />
+    <End Role="Horario" Type="Self.Horario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Estabelecimento">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Horario">
+        <PropertyRef Name="EstabelecimentoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_Produto_Estabelecimento1">
+    <End Role="Estabelecimento" Type="Self.Estabelecimento" Multiplicity="1" />
+    <End Role="Produto" Type="Self.Produto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Estabelecimento">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Produto">
+        <PropertyRef Name="EstabelecimentoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_ProdutoTag_Produto1">
+    <End Role="Produto" Type="Self.Produto" Multiplicity="1" />
+    <End Role="ProdutoTag" Type="Self.ProdutoTag" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Produto">
+        <PropertyRef Name="ID" />
+        <PropertyRef Name="EstabelecimentoId" />
+      </Principal>
+      <Dependent Role="ProdutoTag">
+        <PropertyRef Name="ProdutoId" />
+        <PropertyRef Name="EstabelecimentoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_ProdutoTag_Tag1">
+    <End Role="Tag" Type="Self.Tag" Multiplicity="1" />
+    <End Role="ProdutoTag" Type="Self.ProdutoTag" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tag">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ProdutoTag">
+        <PropertyRef Name="TagId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_UtilizadorProduto_Produto1">
+    <End Role="Produto" Type="Self.Produto" Multiplicity="1" />
+    <End Role="UtilizadorProduto" Type="Self.UtilizadorProduto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Produto">
+        <PropertyRef Name="ID" />
+        <PropertyRef Name="EstabelecimentoId" />
+      </Principal>
+      <Dependent Role="UtilizadorProduto">
+        <PropertyRef Name="ProdutoId" />
+        <PropertyRef Name="EstabelecimentoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_UtilizadorProduto_Utilizador">
+    <End Role="Utilizador" Type="Self.Utilizador" Multiplicity="1" />
+    <End Role="UtilizadorProduto" Type="Self.UtilizadorProduto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Utilizador">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="UtilizadorProduto">
+        <PropertyRef Name="UtilizadorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_UtilizadorTag_Tag1">
+    <End Role="Tag" Type="Self.Tag" Multiplicity="1" />
+    <End Role="Preferencia" Type="Self.Preferencia" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tag">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Preferencia">
+        <PropertyRef Name="TagId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_UtilizadorTag_Utilizador1">
+    <End Role="Utilizador" Type="Self.Utilizador" Multiplicity="1" />
+    <End Role="Preferencia" Type="Self.Preferencia" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Utilizador">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Preferencia">
+        <PropertyRef Name="UtilizadorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_Visita_UtilizadorProduto1">
+    <End Role="UtilizadorProduto" Type="Self.UtilizadorProduto" Multiplicity="1" />
+    <End Role="Visita" Type="Self.Visita" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UtilizadorProduto">
+        <PropertyRef Name="UtilizadorId" />
+        <PropertyRef Name="ProdutoId" />
+        <PropertyRef Name="EstabelecimentoId" />
+      </Principal>
+      <Dependent Role="Visita">
+        <PropertyRef Name="UtlizadorId" />
+        <PropertyRef Name="ProdutoId" />
+        <PropertyRef Name="EstabelecimentoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="WhatsYummyDBModelStoreContainer">
+    <EntitySet Name="Avaliacao" EntityType="Self.Avaliacao" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Estabelecimento" EntityType="Self.Estabelecimento" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Horario" EntityType="Self.Horario" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Preferencia" EntityType="Self.Preferencia" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Produto" EntityType="Self.Produto" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProdutoTag" EntityType="Self.ProdutoTag" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tag" EntityType="Self.Tag" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Utilizador" EntityType="Self.Utilizador" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UtilizadorProduto" EntityType="Self.UtilizadorProduto" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Visita" EntityType="Self.Visita" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="fk_Avaliacao_Produto1" Association="Self.fk_Avaliacao_Produto1">
+      <End Role="Produto" EntitySet="Produto" />
+      <End Role="Avaliacao" EntitySet="Avaliacao" />
+    </AssociationSet>
+    <AssociationSet Name="fk_Avaliacao_Utilizador1" Association="Self.fk_Avaliacao_Utilizador1">
+      <End Role="Utilizador" EntitySet="Utilizador" />
+      <End Role="Avaliacao" EntitySet="Avaliacao" />
+    </AssociationSet>
+    <AssociationSet Name="fk_Estabelecimento_Utilizador1" Association="Self.fk_Estabelecimento_Utilizador1">
+      <End Role="Utilizador" EntitySet="Utilizador" />
+      <End Role="Estabelecimento" EntitySet="Estabelecimento" />
+    </AssociationSet>
+    <AssociationSet Name="fk_Horario_Estabelecimento1" Association="Self.fk_Horario_Estabelecimento1">
+      <End Role="Estabelecimento" EntitySet="Estabelecimento" />
+      <End Role="Horario" EntitySet="Horario" />
+    </AssociationSet>
+    <AssociationSet Name="fk_Produto_Estabelecimento1" Association="Self.fk_Produto_Estabelecimento1">
+      <End Role="Estabelecimento" EntitySet="Estabelecimento" />
+      <End Role="Produto" EntitySet="Produto" />
+    </AssociationSet>
+    <AssociationSet Name="fk_ProdutoTag_Produto1" Association="Self.fk_ProdutoTag_Produto1">
+      <End Role="Produto" EntitySet="Produto" />
+      <End Role="ProdutoTag" EntitySet="ProdutoTag" />
+    </AssociationSet>
+    <AssociationSet Name="fk_ProdutoTag_Tag1" Association="Self.fk_ProdutoTag_Tag1">
+      <End Role="Tag" EntitySet="Tag" />
+      <End Role="ProdutoTag" EntitySet="ProdutoTag" />
+    </AssociationSet>
+    <AssociationSet Name="fk_UtilizadorProduto_Produto1" Association="Self.fk_UtilizadorProduto_Produto1">
+      <End Role="Produto" EntitySet="Produto" />
+      <End Role="UtilizadorProduto" EntitySet="UtilizadorProduto" />
+    </AssociationSet>
+    <AssociationSet Name="fk_UtilizadorProduto_Utilizador" Association="Self.fk_UtilizadorProduto_Utilizador">
+      <End Role="Utilizador" EntitySet="Utilizador" />
+      <End Role="UtilizadorProduto" EntitySet="UtilizadorProduto" />
+    </AssociationSet>
+    <AssociationSet Name="fk_UtilizadorTag_Tag1" Association="Self.fk_UtilizadorTag_Tag1">
+      <End Role="Tag" EntitySet="Tag" />
+      <End Role="Preferencia" EntitySet="Preferencia" />
+    </AssociationSet>
+    <AssociationSet Name="fk_UtilizadorTag_Utilizador1" Association="Self.fk_UtilizadorTag_Utilizador1">
+      <End Role="Utilizador" EntitySet="Utilizador" />
+      <End Role="Preferencia" EntitySet="Preferencia" />
+    </AssociationSet>
+    <AssociationSet Name="fk_Visita_UtilizadorProduto1" Association="Self.fk_Visita_UtilizadorProduto1">
+      <End Role="UtilizadorProduto" EntitySet="UtilizadorProduto" />
+      <End Role="Visita" EntitySet="Visita" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

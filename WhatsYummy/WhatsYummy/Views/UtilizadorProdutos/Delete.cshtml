@@ -1,7 +1,7 @@
-@model WhatsYummy.Models.UtilizadorProduto
+﻿@model WhatsYummy.Models.UtilizadorProduto
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewBag.Title = "Delete";
 }
 
 <h2>Delete</h2>
@@ -11,19 +11,38 @@
     <h4>UtilizadorProduto</h4>
     <hr />
     <dl class="dl-horizontal">
-        <input type="hidden" asp-for="Id" />
         <dt>
             @Html.DisplayNameFor(model => model.Favorito)
         </dt>
+
         <dd>
             @Html.DisplayFor(model => model.Favorito)
         </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Produto.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Produto.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Utilizador.Username)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Utilizador.Username)
+        </dd>
+
     </dl>
-    
-    <form asp-action="Delete">
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
         <div class="form-actions no-color">
             <input type="submit" value="Delete" class="btn btn-default" /> |
-            <a asp-action="Index">Back to List</a>
+            @Html.ActionLink("Back to List", "Index")
         </div>
-    </form>
+    }
 </div>

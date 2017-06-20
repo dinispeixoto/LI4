@@ -1,70 +1,80 @@
-@model WhatsYummy.Models.Estabelecimento
+﻿@model WhatsYummy.Models.Estabelecimento
 
 @{
-    ViewData["Title"] = "Create";
+    ViewBag.Title = "Create";
 }
 
 <h2>Create</h2>
 
-<form asp-action="Create">
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
     <div class="form-horizontal">
         <h4>Estabelecimento</h4>
         <hr />
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            <label asp-for="Nome" class="col-md-2 control-label"></label>
+            @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <input asp-for="Nome" class="form-control" />
-                <span asp-validation-for="Nome" class="text-danger"></span>
+                @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
             </div>
         </div>
+
         <div class="form-group">
-            <label asp-for="Localidade" class="col-md-2 control-label"></label>
+            @Html.LabelFor(model => model.CodigoPostal, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <input asp-for="Localidade" class="form-control" />
-                <span asp-validation-for="Localidade" class="text-danger"></span>
+                @Html.EditorFor(model => model.CodigoPostal, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CodigoPostal, "", new { @class = "text-danger" })
             </div>
         </div>
+
         <div class="form-group">
-            <label asp-for="CodigoPostal" class="col-md-2 control-label"></label>
+            @Html.LabelFor(model => model.Localidade, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <input asp-for="CodigoPostal" class="form-control" />
-                <span asp-validation-for="CodigoPostal" class="text-danger"></span>
+                @Html.EditorFor(model => model.Localidade, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Localidade, "", new { @class = "text-danger" })
             </div>
         </div>
+
         <div class="form-group">
-            <label asp-for="Rua" class="col-md-2 control-label"></label>
+            @Html.LabelFor(model => model.Rua, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <input asp-for="Rua" class="form-control" />
-                <span asp-validation-for="Rua" class="text-danger"></span>
+                @Html.EditorFor(model => model.Rua, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Rua, "", new { @class = "text-danger" })
             </div>
         </div>
+
         <div class="form-group">
-            <label asp-for="Estado" class="col-md-2 control-label"></label>
+            @Html.LabelFor(model => model.UtilizadorId, "UtilizadorId", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <input asp-for="Estado" class="form-control" />
-                <span asp-validation-for="Estado" class="text-danger"></span>
+                @Html.DropDownList("UtilizadorId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.UtilizadorId, "", new { @class = "text-danger" })
             </div>
         </div>
+
         <div class="form-group">
-            <label asp-for="NumProdutos" class="col-md-2 control-label"></label>
+            @Html.LabelFor(model => model.Estado, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <input asp-for="NumProdutos" class="form-control" />
-                <span asp-validation-for="NumProdutos" class="text-danger"></span>
+                @Html.EditorFor(model => model.Estado, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Estado, "", new { @class = "text-danger" })
             </div>
         </div>
+
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Create" class="btn btn-default" />
             </div>
         </div>
     </div>
-</form>
+}
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    @Html.ActionLink("Back to List", "Index")
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @Scripts.Render("~/bundles/jqueryval")
 }

@@ -1,7 +1,7 @@
-@model WhatsYummy.Models.Produto
+﻿@model WhatsYummy.Models.Produto
 
 @{
-    ViewData["Title"] = "Details";
+    ViewBag.Title = "Details";
 }
 
 <h2>Details</h2>
@@ -13,30 +13,54 @@
         <dt>
             @Html.DisplayNameFor(model => model.Nome)
         </dt>
+
         <dd>
             @Html.DisplayFor(model => model.Nome)
         </dd>
+
         <dt>
             @Html.DisplayNameFor(model => model.Descricao)
         </dt>
+
         <dd>
             @Html.DisplayFor(model => model.Descricao)
         </dd>
+
         <dt>
             @Html.DisplayNameFor(model => model.Preco)
         </dt>
+
         <dd>
             @Html.DisplayFor(model => model.Preco)
         </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Visitas)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Visitas)
+        </dd>
+
         <dt>
             @Html.DisplayNameFor(model => model.Foto)
         </dt>
+
         <dd>
             @Html.DisplayFor(model => model.Foto)
         </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Estabelecimento.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Estabelecimento.Nome)
+        </dd>
+
     </dl>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

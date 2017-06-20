@@ -4,22 +4,15 @@ using System.Net;
 using Newtonsoft.Json;
 using WhatsYummy.Models;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
-using Microsoft.Extensions.Options;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
+using System.Linq;
 
 namespace WhatsYummy.DataAPI
 {
     public class Parser
     {
-        private readonly WhatsYummyContext _context;
-        public Parser(WhatsYummyContext context)
-        {
-            _context = context;
-        }
+        private WhatsYummyDBEntities context = new WhatsYummyDBEntities();
 
         public string[] Converte(string s)
         {
@@ -45,7 +38,6 @@ namespace WhatsYummy.DataAPI
             return res;
         }
 
-
         public void print(Estabelecimento e){
             Console.WriteLine("Nome: " + e.Nome); 
             Console.WriteLine("Localidade: " + e.Localidade);
@@ -61,75 +53,80 @@ namespace WhatsYummy.DataAPI
         }
 
 
-        public async Task Load(string pedido)
+        public async Task Load(string pedido, string cidade)
         {
-            //string key = "AIzaSyCko94hzyMQsWmdYADPFKUTQKIAgtO6sNw";
-            string key = "AIzaSyDTqSPvjN5vu1pbbKS8tqTy9D2ehq141rc";
-            string sURL = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=" + pedido + "+in+Braga&key=" + key;
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(sURL);
-            HttpWebResponse response = (HttpWebResponse)await request.GetResponseAsync();
-
-            StreamReader streamReader = new StreamReader(response.GetResponseStream());
-            string output = streamReader.ReadToEnd();
-
-            dynamic dynObj = JsonConvert.DeserializeObject(output);
-
-            foreach (var data in dynObj.results)
+            if (!context.Estabelecimento.Any())
             {
-                string id = data.place_id;
-                Console.WriteLine("-------" + id + "-------");
 
-                string restUrl = "https://maps.googleapis.com/maps/api/place/details/json?placeid=" + id + "&key=" + key;
-                Console.WriteLine(restUrl);
-                HttpWebRequest request2 = (HttpWebRequest)WebRequest.Create(restUrl);
-                HttpWebResponse response2 = (HttpWebResponse)await request2.GetResponseAsync();
+                string key = "AIzaSyCko94hzyMQsWmdYADPFKUTQKIAgtO6sNw";
+                //string key = "AIzaSyDTqSPvjN5vu1pbbKS8tqTy9D2ehq141rc";
+                string sURL = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=" + pedido + "+in+" + cidade + "&key=" + key;
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(sURL);
+                HttpWebResponse response = (HttpWebResponse)await request.GetResponseAsync();
 
-                StreamReader streamReader2 = new StreamReader(response2.GetResponseStream());
+                StreamReader streamReader = new StreamReader(response.GetResponseStream());
+                string output = streamReader.ReadToEnd();
 
-                string outputRest = streamReader2.ReadToEnd();
+                dynamic dynObj = JsonConvert.DeserializeObject(output);
 
-                dynamic restautante = JsonConvert.DeserializeObject(outputRest);
-                var rest = restautante.result;
-
-                string[] address = Converte((string)rest.formatted_address);
-
-                Estabelecimento esta = new Estabelecimento();
-                esta.Nome = rest.name;
-                esta.Localidade = address[2];
-                esta.CodigoPostal = address[1];
-                esta.Rua = address[0];
-                esta.Estado = 1;
-
-                esta.Horario = new List<Horario>();
-
-                if (rest.opening_hours != null)
+                foreach (var data in dynObj.results)
                 {
-                    int act = 0;
-                    foreach (var dia in rest.opening_hours.periods)
+                    string id = data.place_id;
+
+                    string restUrl = "https://maps.googleapis.com/maps/api/place/details/json?placeid=" + id + "&key=" + key;
+
+                    HttpWebRequest request2 = (HttpWebRequest)WebRequest.Create(restUrl);
+                    HttpWebResponse response2 = (HttpWebResponse)await request2.GetResponseAsync();
+
+                    StreamReader streamReader2 = new StreamReader(response2.GetResponseStream());
+
+                    string outputRest = streamReader2.ReadToEnd();
+
+                    dynamic restautante = JsonConvert.DeserializeObject(outputRest);
+                    var rest = restautante.result;
+
+                    string[] address = Converte((string)rest.formatted_address);
+
+                    Estabelecimento esta = new Estabelecimento();
+                    esta.Nome = rest.name;
+                    esta.Localidade = address[2];
+                    if (address[1] != null) esta.CodigoPostal = address[1];
+                    else esta.CodigoPostal = "0000-000";
+                    esta.Rua = address[0];
+                    esta.Estado = 1;
+
+                    esta.Horario = new List<Horario>();
+                    esta.Produto = new List<Produto>();
+
+                    if (rest.opening_hours != null)
                     {
-                        if (act <= Convert.ToInt32((string)dia.open.day))
+                        int act = 0;
+                        foreach (var dia in rest.opening_hours.periods)
                         {
-                            Horario Hor = new Horario();
+                            if (act <= Convert.ToInt32((string)dia.open.day))
+                            {
+                                Horario Hor = new Horario();
 
-                            if (Convert.ToInt32((string)dia.open.day) == 0) Hor.Dia = 7;
-                            else Hor.Dia = Convert.ToInt32((string)dia.open.day);
+                                if (Convert.ToInt32((string)dia.open.day) == 0) Hor.Dia = 7;
+                                else Hor.Dia = Convert.ToInt32((string)dia.open.day);
 
-                            int hora = Convert.ToInt32(((string)dia.open.time).Substring(0, 2));
-                            int min = Convert.ToInt32(((string)dia.open.time).Substring(2));
-                            Hor.HoraAbertura = new TimeSpan(hora, min, 0);
+                                int hora = Convert.ToInt32(((string)dia.open.time).Substring(0, 2));
+                                int min = Convert.ToInt32(((string)dia.open.time).Substring(2));
+                                Hor.HoraAbertura = new TimeSpan(hora, min, 0);
 
-                            hora = Convert.ToInt32(((string)dia.close.time).Substring(0, 2));
-                            min = Convert.ToInt32(((string)dia.close.time).Substring(2));
-                            Hor.HoraFecho = new TimeSpan(hora, min, 0);
+                                hora = Convert.ToInt32(((string)dia.close.time).Substring(0, 2));
+                                min = Convert.ToInt32(((string)dia.close.time).Substring(2));
+                                Hor.HoraFecho = new TimeSpan(hora, min, 0);
 
-                            esta.Horario.Add(Hor);
+                                esta.Horario.Add(Hor);
 
-                            act = Convert.ToInt32((string)dia.open.day) + 1;
+                                act = Convert.ToInt32((string)dia.open.day) + 1;
+                            }
                         }
                     }
+                    context.Estabelecimento.Add(esta);
+                    context.SaveChanges();
                 }
-                
-                break;
             }
         }
     }

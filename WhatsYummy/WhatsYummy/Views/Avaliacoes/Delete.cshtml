@@ -1,7 +1,7 @@
-@model WhatsYummy.Models.Avaliacao
+﻿@model WhatsYummy.Models.Avaliacao
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewBag.Title = "Delete";
 }
 
 <h2>Delete</h2>
@@ -11,31 +11,54 @@
     <h4>Avaliacao</h4>
     <hr />
     <dl class="dl-horizontal">
-        <input type="hidden" asp-for="Id" />
         <dt>
-            @Html.DisplayNameFor(model => model.Classificacao)
+            @Html.DisplayNameFor(model => model.Classificaçao)
         </dt>
+
         <dd>
-            @Html.DisplayFor(model => model.Classificacao)
+            @Html.DisplayFor(model => model.Classificaçao)
         </dd>
+
         <dt>
             @Html.DisplayNameFor(model => model.Comentario)
         </dt>
+
         <dd>
             @Html.DisplayFor(model => model.Comentario)
         </dd>
+
         <dt>
             @Html.DisplayNameFor(model => model.Foto)
         </dt>
+
         <dd>
             @Html.DisplayFor(model => model.Foto)
         </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Produto.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Produto.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Utilizador.Username)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Utilizador.Username)
+        </dd>
+
     </dl>
-    
-    <form asp-action="Delete">
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
         <div class="form-actions no-color">
             <input type="submit" value="Delete" class="btn btn-default" /> |
-            <a asp-action="Index">Back to List</a>
+            @Html.ActionLink("Back to List", "Index")
         </div>
-    </form>
+    }
 </div>

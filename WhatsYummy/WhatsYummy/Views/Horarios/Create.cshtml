@@ -1,42 +1,64 @@
-@model WhatsYummy.Models.Horario
+﻿@model WhatsYummy.Models.Horario
 
 @{
-    ViewData["Title"] = "Create";
+    ViewBag.Title = "Create";
 }
 
 <h2>Create</h2>
 
-<form asp-action="Create">
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
     <div class="form-horizontal">
         <h4>Horario</h4>
         <hr />
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            <label asp-for="HoraAbertura" class="col-md-2 control-label"></label>
+            @Html.LabelFor(model => model.Dia, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <input asp-for="HoraAbertura" class="form-control" />
-                <span asp-validation-for="HoraAbertura" class="text-danger"></span>
+                @Html.EditorFor(model => model.Dia, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Dia, "", new { @class = "text-danger" })
             </div>
         </div>
+
         <div class="form-group">
-            <label asp-for="HoraFecho" class="col-md-2 control-label"></label>
+            @Html.LabelFor(model => model.EstabelecimentoId, "EstabelecimentoId", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <input asp-for="HoraFecho" class="form-control" />
-                <span asp-validation-for="HoraFecho" class="text-danger"></span>
+                @Html.DropDownList("EstabelecimentoId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.EstabelecimentoId, "", new { @class = "text-danger" })
             </div>
         </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.HoraAbertura, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.HoraAbertura, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.HoraAbertura, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.HoraFecho, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.HoraFecho, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.HoraFecho, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Create" class="btn btn-default" />
             </div>
         </div>
     </div>
-</form>
+}
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    @Html.ActionLink("Back to List", "Index")
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @Scripts.Render("~/bundles/jqueryval")
 }

@@ -1,152 +1,136 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
+using System.Net;
+using System.Web;
+using System.Web.Mvc;
 using WhatsYummy.Models;
 
 namespace WhatsYummy.Controllers
 {
     public class AvaliacoesController : Controller
     {
-        private readonly WhatsYummyContext _context;
-
-        public AvaliacoesController(WhatsYummyContext context)
-        {
-            _context = context;    
-        }
+        private WhatsYummyDBEntities db = new WhatsYummyDBEntities();
 
         // GET: Avaliacoes
-        public async Task<IActionResult> Index()
+        public ActionResult Index()
         {
-            return View(await _context.Avaliacao.ToListAsync());
+            var avaliacao = db.Avaliacao.Include(a => a.Produto).Include(a => a.Utilizador);
+            return View(avaliacao.ToList());
         }
 
         // GET: Avaliacoes/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public ActionResult Details(int? id)
         {
             if (id == null)
             {
-                return NotFound();
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
-            var avaliacao = await _context.Avaliacao
-                .SingleOrDefaultAsync(m => m.Id == id);
+            Avaliacao avaliacao = db.Avaliacao.Find(id);
             if (avaliacao == null)
             {
-                return NotFound();
+                return HttpNotFound();
             }
-
             return View(avaliacao);
         }
 
         // GET: Avaliacoes/Create
-        public IActionResult Create()
+        public ActionResult Create()
         {
+            ViewBag.ProdutoId = new SelectList(db.Produto, "ID", "Nome");
+            ViewBag.UtilizadorId = new SelectList(db.Utilizador, "ID", "Username");
             return View();
         }
 
         // POST: Avaliacoes/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
+        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Classificacao,Comentario,Foto")] Avaliacao avaliacao)
+        public ActionResult Create([Bind(Include = "ID,Classificaçao,Comentario,UtilizadorId,ProdutoId,EstabelecimentoId,Foto")] Avaliacao avaliacao)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(avaliacao);
-                await _context.SaveChangesAsync();
+                db.Avaliacao.Add(avaliacao);
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
+            ViewBag.ProdutoId = new SelectList(db.Produto, "ID", "Nome", avaliacao.ProdutoId);
+            ViewBag.UtilizadorId = new SelectList(db.Utilizador, "ID", "Username", avaliacao.UtilizadorId);
             return View(avaliacao);
         }
 
         // GET: Avaliacoes/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public ActionResult Edit(int? id)
         {
             if (id == null)
             {
-                return NotFound();
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
-            var avaliacao = await _context.Avaliacao.SingleOrDefaultAsync(m => m.Id == id);
+            Avaliacao avaliacao = db.Avaliacao.Find(id);
             if (avaliacao == null)
             {
-                return NotFound();
+                return HttpNotFound();
             }
+            ViewBag.ProdutoId = new SelectList(db.Produto, "ID", "Nome", avaliacao.ProdutoId);
+            ViewBag.UtilizadorId = new SelectList(db.Utilizador, "ID", "Username", avaliacao.UtilizadorId);
             return View(avaliacao);
         }
 
         // POST: Avaliacoes/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
+        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Classificacao,Comentario,Foto")] Avaliacao avaliacao)
+        public ActionResult Edit([Bind(Include = "ID,Classificaçao,Comentario,UtilizadorId,ProdutoId,EstabelecimentoId,Foto")] Avaliacao avaliacao)
         {
-            if (id != avaliacao.Id)
-            {
-                return NotFound();
-            }
-
             if (ModelState.IsValid)
             {
-                try
-                {
-                    _context.Update(avaliacao);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!AvaliacaoExists(avaliacao.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                db.Entry(avaliacao).State = EntityState.Modified;
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.ProdutoId = new SelectList(db.Produto, "ID", "Nome", avaliacao.ProdutoId);
+            ViewBag.UtilizadorId = new SelectList(db.Utilizador, "ID", "Username", avaliacao.UtilizadorId);
             return View(avaliacao);
         }
 
         // GET: Avaliacoes/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public ActionResult Delete(int? id)
         {
             if (id == null)
             {
-                return NotFound();
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
-            var avaliacao = await _context.Avaliacao
-                .SingleOrDefaultAsync(m => m.Id == id);
+            Avaliacao avaliacao = db.Avaliacao.Find(id);
             if (avaliacao == null)
             {
-                return NotFound();
+                return HttpNotFound();
             }
-
             return View(avaliacao);
         }
 
         // POST: Avaliacoes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int id)
         {
-            var avaliacao = await _context.Avaliacao.SingleOrDefaultAsync(m => m.Id == id);
-            _context.Avaliacao.Remove(avaliacao);
-            await _context.SaveChangesAsync();
+            Avaliacao avaliacao = db.Avaliacao.Find(id);
+            db.Avaliacao.Remove(avaliacao);
+            db.SaveChanges();
             return RedirectToAction("Index");
         }
 
-        private bool AvaliacaoExists(int id)
+        protected override void Dispose(bool disposing)
         {
-            return _context.Avaliacao.Any(e => e.Id == id);
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
 }

@@ -1,7 +1,7 @@
-@model WhatsYummy.Models.Estabelecimento
+﻿@model WhatsYummy.Models.Estabelecimento
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewBag.Title = "Delete";
 }
 
 <h2>Delete</h2>
@@ -11,49 +11,62 @@
     <h4>Estabelecimento</h4>
     <hr />
     <dl class="dl-horizontal">
-        <input type="hidden" asp-for="Id" />
         <dt>
             @Html.DisplayNameFor(model => model.Nome)
         </dt>
+
         <dd>
             @Html.DisplayFor(model => model.Nome)
         </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Localidade)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Localidade)
-        </dd>
+
         <dt>
             @Html.DisplayNameFor(model => model.CodigoPostal)
         </dt>
+
         <dd>
             @Html.DisplayFor(model => model.CodigoPostal)
         </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Localidade)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Localidade)
+        </dd>
+
         <dt>
             @Html.DisplayNameFor(model => model.Rua)
         </dt>
+
         <dd>
             @Html.DisplayFor(model => model.Rua)
         </dd>
+
         <dt>
             @Html.DisplayNameFor(model => model.Estado)
         </dt>
+
         <dd>
             @Html.DisplayFor(model => model.Estado)
         </dd>
+
         <dt>
-            @Html.DisplayNameFor(model => model.NumProdutos)
+            @Html.DisplayNameFor(model => model.Utilizador.Username)
         </dt>
+
         <dd>
-            @Html.DisplayFor(model => model.NumProdutos)
+            @Html.DisplayFor(model => model.Utilizador.Username)
         </dd>
+
     </dl>
-    
-    <form asp-action="Delete">
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
         <div class="form-actions no-color">
             <input type="submit" value="Delete" class="btn btn-default" /> |
-            <a asp-action="Index">Back to List</a>
+            @Html.ActionLink("Back to List", "Index")
         </div>
-    </form>
+    }
 </div>

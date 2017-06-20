@@ -1,152 +1,132 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
+using System.Net;
+using System.Web;
+using System.Web.Mvc;
 using WhatsYummy.Models;
 
 namespace WhatsYummy.Controllers
 {
     public class HorariosController : Controller
     {
-        private readonly WhatsYummyContext _context;
-
-        public HorariosController(WhatsYummyContext context)
-        {
-            _context = context;    
-        }
+        private WhatsYummyDBEntities db = new WhatsYummyDBEntities();
 
         // GET: Horarios
-        public async Task<IActionResult> Index()
+        public ActionResult Index()
         {
-            return View(await _context.Horario.ToListAsync());
+            var horario = db.Horario.Include(h => h.Estabelecimento);
+            return View(horario.ToList());
         }
 
         // GET: Horarios/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public ActionResult Details(int? id)
         {
             if (id == null)
             {
-                return NotFound();
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
-            var horario = await _context.Horario
-                .SingleOrDefaultAsync(m => m.Dia == id);
+            Horario horario = db.Horario.Find(id);
             if (horario == null)
             {
-                return NotFound();
+                return HttpNotFound();
             }
-
             return View(horario);
         }
 
         // GET: Horarios/Create
-        public IActionResult Create()
+        public ActionResult Create()
         {
+            ViewBag.EstabelecimentoId = new SelectList(db.Estabelecimento, "ID", "Nome");
             return View();
         }
 
         // POST: Horarios/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
+        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Dia,HoraAbertura,HoraFecho")] Horario horario)
+        public ActionResult Create([Bind(Include = "Dia,EstabelecimentoId,HoraAbertura,HoraFecho")] Horario horario)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(horario);
-                await _context.SaveChangesAsync();
+                db.Horario.Add(horario);
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
+            ViewBag.EstabelecimentoId = new SelectList(db.Estabelecimento, "ID", "Nome", horario.EstabelecimentoId);
             return View(horario);
         }
 
         // GET: Horarios/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public ActionResult Edit(int? id)
         {
             if (id == null)
             {
-                return NotFound();
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
-            var horario = await _context.Horario.SingleOrDefaultAsync(m => m.Dia == id);
+            Horario horario = db.Horario.Find(id);
             if (horario == null)
             {
-                return NotFound();
+                return HttpNotFound();
             }
+            ViewBag.EstabelecimentoId = new SelectList(db.Estabelecimento, "ID", "Nome", horario.EstabelecimentoId);
             return View(horario);
         }
 
         // POST: Horarios/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
+        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Dia,HoraAbertura,HoraFecho")] Horario horario)
+        public ActionResult Edit([Bind(Include = "Dia,EstabelecimentoId,HoraAbertura,HoraFecho")] Horario horario)
         {
-            if (id != horario.Dia)
-            {
-                return NotFound();
-            }
-
             if (ModelState.IsValid)
             {
-                try
-                {
-                    _context.Update(horario);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!HorarioExists(horario.Dia))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                db.Entry(horario).State = EntityState.Modified;
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.EstabelecimentoId = new SelectList(db.Estabelecimento, "ID", "Nome", horario.EstabelecimentoId);
             return View(horario);
         }
 
         // GET: Horarios/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public ActionResult Delete(int? id)
         {
             if (id == null)
             {
-                return NotFound();
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
-            var horario = await _context.Horario
-                .SingleOrDefaultAsync(m => m.Dia == id);
+            Horario horario = db.Horario.Find(id);
             if (horario == null)
             {
-                return NotFound();
+                return HttpNotFound();
             }
-
             return View(horario);
         }
 
         // POST: Horarios/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int id)
         {
-            var horario = await _context.Horario.SingleOrDefaultAsync(m => m.Dia == id);
-            _context.Horario.Remove(horario);
-            await _context.SaveChangesAsync();
+            Horario horario = db.Horario.Find(id);
+            db.Horario.Remove(horario);
+            db.SaveChanges();
             return RedirectToAction("Index");
         }
 
-        private bool HorarioExists(int id)
+        protected override void Dispose(bool disposing)
         {
-            return _context.Horario.Any(e => e.Dia == id);
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
 }

@@ -1,154 +1,141 @@
-using System;
+﻿  using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
+using System.Net;
+using System.Web;
+using System.Web.Mvc;
 using WhatsYummy.Models;
 
 namespace WhatsYummy.Controllers
 {
     public class EstabelecimentosController : Controller
     {
-        private readonly WhatsYummyContext _context;
-
-        public EstabelecimentosController(WhatsYummyContext context)
-        {
-            _context = context;    
-        }
+        private WhatsYummyDBEntities db = new WhatsYummyDBEntities();
 
         // GET: Estabelecimentos
-        public async Task<IActionResult> Index()
+        public ActionResult Index()
         {
-            return View(await _context.Estabelecimento.ToListAsync());
+            var estabelecimento = db.Estabelecimento.Include(e => e.Utilizador);
+            return View(estabelecimento.ToList());
         }
 
         // GET: Estabelecimentos/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public ActionResult Details(int? id)
         {
             if (id == null)
             {
-                return NotFound();
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
-            var estabelecimento = await _context.Estabelecimento
-                .SingleOrDefaultAsync(m => m.Id == id);
+            Estabelecimento estabelecimento = db.Estabelecimento.Find(id);
             if (estabelecimento == null)
             {
-                return NotFound();
+                return HttpNotFound();
             }
-
             return View(estabelecimento);
         }
 
-        // GET: Estabelecimentos/Create
-        public IActionResult Create()
+        public ActionResult Horario(int id)
         {
+            Estabelecimento estabelecimento = db.Estabelecimento.Find(id);
+            List<Horario> lista = new List<Horario>();
+            lista = estabelecimento.Horario.ToList();
+
+            return View(lista.ToList());
+        }
+
+        // GET: Estabelecimentos/Create
+        public ActionResult Create()
+        {
+            ViewBag.UtilizadorId = new SelectList(db.Utilizador, "ID", "Username");
             return View();
         }
 
         // POST: Estabelecimentos/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
+        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Descricao,Nome,Localidade,CodigoPostal,Rua,Estado,NumProdutos")] Estabelecimento estabelecimento)
+        public ActionResult Create([Bind(Include = "ID,Nome,CodigoPostal,Localidade,Rua,UtilizadorId,Estado")] Estabelecimento estabelecimento)
         {
             if (ModelState.IsValid)
             {
-                estabelecimento.NumProdutos = 0;
-
-                _context.Add(estabelecimento);
-                await _context.SaveChangesAsync();
+                db.Estabelecimento.Add(estabelecimento);
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
+            ViewBag.UtilizadorId = new SelectList(db.Utilizador, "ID", "Username", estabelecimento.UtilizadorId);
             return View(estabelecimento);
         }
 
         // GET: Estabelecimentos/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public ActionResult Edit(int? id)
         {
             if (id == null)
             {
-                return NotFound();
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
-            var estabelecimento = await _context.Estabelecimento.SingleOrDefaultAsync(m => m.Id == id);
+            Estabelecimento estabelecimento = db.Estabelecimento.Find(id);
             if (estabelecimento == null)
             {
-                return NotFound();
+                return HttpNotFound();
             }
+            ViewBag.UtilizadorId = new SelectList(db.Utilizador, "ID", "Username", estabelecimento.UtilizadorId);
             return View(estabelecimento);
         }
 
         // POST: Estabelecimentos/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
+        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Descricao,Nome,Localidade,CodigoPostal,Rua,Estado,NumProdutos")] Estabelecimento estabelecimento)
+        public ActionResult Edit([Bind(Include = "ID,Nome,CodigoPostal,Localidade,Rua,UtilizadorId,Estado")] Estabelecimento estabelecimento)
         {
-            if (id != estabelecimento.Id)
-            {
-                return NotFound();
-            }
-
             if (ModelState.IsValid)
             {
-                try
-                {
-                    _context.Update(estabelecimento);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!EstabelecimentoExists(estabelecimento.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                db.Entry(estabelecimento).State = EntityState.Modified;
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.UtilizadorId = new SelectList(db.Utilizador, "ID", "Username", estabelecimento.UtilizadorId);
             return View(estabelecimento);
         }
 
         // GET: Estabelecimentos/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public ActionResult Delete(int? id)
         {
             if (id == null)
             {
-                return NotFound();
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
-            var estabelecimento = await _context.Estabelecimento
-                .SingleOrDefaultAsync(m => m.Id == id);
+            Estabelecimento estabelecimento = db.Estabelecimento.Find(id);
             if (estabelecimento == null)
             {
-                return NotFound();
+                return HttpNotFound();
             }
-
             return View(estabelecimento);
         }
 
         // POST: Estabelecimentos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int id)
         {
-            var estabelecimento = await _context.Estabelecimento.SingleOrDefaultAsync(m => m.Id == id);
-            _context.Estabelecimento.Remove(estabelecimento);
-            await _context.SaveChangesAsync();
+            Estabelecimento estabelecimento = db.Estabelecimento.Find(id);
+            db.Estabelecimento.Remove(estabelecimento);
+            db.SaveChanges();
             return RedirectToAction("Index");
         }
 
-        private bool EstabelecimentoExists(int id)
+        protected override void Dispose(bool disposing)
         {
-            return _context.Estabelecimento.Any(e => e.Id == id);
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
 }

@@ -1,7 +1,7 @@
-@model WhatsYummy.Models.Tag
+﻿@model WhatsYummy.Models.Tag
 
 @{
-    ViewData["Title"] = "Details";
+    ViewBag.Title = "Details";
 }
 
 <h2>Details</h2>
@@ -13,18 +13,22 @@
         <dt>
             @Html.DisplayNameFor(model => model.Tipo)
         </dt>
+
         <dd>
             @Html.DisplayFor(model => model.Tipo)
         </dd>
+
         <dt>
             @Html.DisplayNameFor(model => model.Nome)
         </dt>
+
         <dd>
             @Html.DisplayFor(model => model.Nome)
         </dd>
+
     </dl>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

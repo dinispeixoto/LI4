@@ -1,152 +1,136 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
+using System.Net;
+using System.Web;
+using System.Web.Mvc;
 using WhatsYummy.Models;
 
 namespace WhatsYummy.Controllers
 {
     public class UtilizadorProdutosController : Controller
     {
-        private readonly WhatsYummyContext _context;
-
-        public UtilizadorProdutosController(WhatsYummyContext context)
-        {
-            _context = context;    
-        }
+        private WhatsYummyDBEntities db = new WhatsYummyDBEntities();
 
         // GET: UtilizadorProdutos
-        public async Task<IActionResult> Index()
+        public ActionResult Index()
         {
-            return View(await _context.UtilizadorProduto.ToListAsync());
+            var utilizadorProduto = db.UtilizadorProduto.Include(u => u.Produto).Include(u => u.Utilizador);
+            return View(utilizadorProduto.ToList());
         }
 
         // GET: UtilizadorProdutos/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public ActionResult Details(int? id)
         {
             if (id == null)
             {
-                return NotFound();
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
-            var utilizadorProduto = await _context.UtilizadorProduto
-                .SingleOrDefaultAsync(m => m.Id == id);
+            UtilizadorProduto utilizadorProduto = db.UtilizadorProduto.Find(id);
             if (utilizadorProduto == null)
             {
-                return NotFound();
+                return HttpNotFound();
             }
-
             return View(utilizadorProduto);
         }
 
         // GET: UtilizadorProdutos/Create
-        public IActionResult Create()
+        public ActionResult Create()
         {
+            ViewBag.ProdutoId = new SelectList(db.Produto, "ID", "Nome");
+            ViewBag.UtilizadorId = new SelectList(db.Utilizador, "ID", "Username");
             return View();
         }
 
         // POST: UtilizadorProdutos/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
+        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Favorito")] UtilizadorProduto utilizadorProduto)
+        public ActionResult Create([Bind(Include = "UtilizadorId,ProdutoId,EstabelecimentoId,Favorito")] UtilizadorProduto utilizadorProduto)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(utilizadorProduto);
-                await _context.SaveChangesAsync();
+                db.UtilizadorProduto.Add(utilizadorProduto);
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
+            ViewBag.ProdutoId = new SelectList(db.Produto, "ID", "Nome", utilizadorProduto.ProdutoId);
+            ViewBag.UtilizadorId = new SelectList(db.Utilizador, "ID", "Username", utilizadorProduto.UtilizadorId);
             return View(utilizadorProduto);
         }
 
         // GET: UtilizadorProdutos/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public ActionResult Edit(int? id)
         {
             if (id == null)
             {
-                return NotFound();
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
-            var utilizadorProduto = await _context.UtilizadorProduto.SingleOrDefaultAsync(m => m.Id == id);
+            UtilizadorProduto utilizadorProduto = db.UtilizadorProduto.Find(id);
             if (utilizadorProduto == null)
             {
-                return NotFound();
+                return HttpNotFound();
             }
+            ViewBag.ProdutoId = new SelectList(db.Produto, "ID", "Nome", utilizadorProduto.ProdutoId);
+            ViewBag.UtilizadorId = new SelectList(db.Utilizador, "ID", "Username", utilizadorProduto.UtilizadorId);
             return View(utilizadorProduto);
         }
 
         // POST: UtilizadorProdutos/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
+        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Favorito")] UtilizadorProduto utilizadorProduto)
+        public ActionResult Edit([Bind(Include = "UtilizadorId,ProdutoId,EstabelecimentoId,Favorito")] UtilizadorProduto utilizadorProduto)
         {
-            if (id != utilizadorProduto.Id)
-            {
-                return NotFound();
-            }
-
             if (ModelState.IsValid)
             {
-                try
-                {
-                    _context.Update(utilizadorProduto);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!UtilizadorProdutoExists(utilizadorProduto.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                db.Entry(utilizadorProduto).State = EntityState.Modified;
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.ProdutoId = new SelectList(db.Produto, "ID", "Nome", utilizadorProduto.ProdutoId);
+            ViewBag.UtilizadorId = new SelectList(db.Utilizador, "ID", "Username", utilizadorProduto.UtilizadorId);
             return View(utilizadorProduto);
         }
 
         // GET: UtilizadorProdutos/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public ActionResult Delete(int? id)
         {
             if (id == null)
             {
-                return NotFound();
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
-            var utilizadorProduto = await _context.UtilizadorProduto
-                .SingleOrDefaultAsync(m => m.Id == id);
+            UtilizadorProduto utilizadorProduto = db.UtilizadorProduto.Find(id);
             if (utilizadorProduto == null)
             {
-                return NotFound();
+                return HttpNotFound();
             }
-
             return View(utilizadorProduto);
         }
 
         // POST: UtilizadorProdutos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int id)
         {
-            var utilizadorProduto = await _context.UtilizadorProduto.SingleOrDefaultAsync(m => m.Id == id);
-            _context.UtilizadorProduto.Remove(utilizadorProduto);
-            await _context.SaveChangesAsync();
+            UtilizadorProduto utilizadorProduto = db.UtilizadorProduto.Find(id);
+            db.UtilizadorProduto.Remove(utilizadorProduto);
+            db.SaveChanges();
             return RedirectToAction("Index");
         }
 
-        private bool UtilizadorProdutoExists(int id)
+        protected override void Dispose(bool disposing)
         {
-            return _context.UtilizadorProduto.Any(e => e.Id == id);
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
 }

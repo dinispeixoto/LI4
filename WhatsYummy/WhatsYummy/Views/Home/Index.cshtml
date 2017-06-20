@@ -11,68 +11,83 @@
 
 <div class="row">
     <div class="col-lg-12">
-        <img src="~/images/mascote.png" class="img-responsive yummy-img" alt="Yummy">
+        <img src="~/Content/images/mascote.png" class="img-responsive yummy-img" alt="Yummy">
     </div>
 </div>
 
 <div class="row">
-	<div class="col-md-offset-3 col-md-6">
-		<form action="Home/Search" method="POST">
-	        <div class="input-group input-border">
-			    <input type="text" name="search" class="form-control input-lg main-search-bar" placeholder="O que vai desejar?" id="transcript">
-			    <span class="input-group-btn but-left">
-				    <button class="btn btn-secondary main-search-bar-button" type="submit" onClick="return empty()">
-					    <i class="fa fa-search" aria-hidden="true"></i>
-	                </button>
-	            </span>
-			    <span class="input-group-btn">
-					<button class="btn main-search-bar-button" type="button" onclick="startDictation()">
-						<i class="fa fa-microphone" aria-hidden="true"></i>
-					</button>
-			    </span>
-		    </div>
-		</form>
-	</div>
-</div>	
+    <div class="col-md-offset-3 col-md-6">
+        <form action="~/Home/Search" method="POST">
+            <div class="input-group input-border">
+                <input type="text" name="search" class="form-control input-lg main-search-bar" placeholder="O que vai desejar?" id="transcript">
+                <input type="hidden" name="location1" id="location1" /> 
+                <span class="input-group-btn but-left">
+                    <button class="btn btn-secondary main-search-bar-button" type="submit" onClick="getLocation1(); return empty()">
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                    </button>
+                </span>
+                <span class="input-group-btn">
+                    <button class="btn main-search-bar-button" type="button" onclick="startDictation()">
+                        <i class="fa fa-microphone" aria-hidden="true"></i>
+                    </button>
+                </span>
+            </div>
+        </form>
+    </div>
+</div>
 
 <div class="row">
     <div class="col-lg-12 speech">
-        <!-- HTML5 Speech Recognition API -->
         <script>
 
-			function empty() {
-			    var x;
-			    x = document.getElementById("transcript").value;
-			    if (x==0) {
-			        return false;
-			    };
-			}
-			
-          function startDictation() {
+            function getLocation1() {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(showPosition1);
+                } else {
+                    // error
+                }
+            } 
 
-            if (window.hasOwnProperty('webkitSpeechRecognition')) {
-
-              var recognition = new webkitSpeechRecognition();
-
-              recognition.continuous = false;
-              recognition.interimResults = false;
-
-              recognition.lang = "pt-PT";
-              recognition.start();
-
-              recognition.onresult = function(e) {
-                document.getElementById('transcript').value
-                                         = e.results[0][0].transcript;
-                recognition.stop();
-                document.getElementById('labnol').submit();
-              };
-
-              recognition.onerror = function(e) {
-                recognition.stop();
-              }
-
+            function showPosition1(position1) {
+                var p = position1.coords.latitude + ',' + position1.coords.longitude;
+                document.getElementById("location1").value = p;
             }
-          }
+
+            getLocation1();
+
+            function empty() {
+                var x;
+                x = document.getElementById("transcript").value;
+                if (x == 0) {
+                    return false;
+                };
+            }
+
+            function startDictation() {
+
+                if (window.hasOwnProperty('webkitSpeechRecognition')) {
+
+                    var recognition = new webkitSpeechRecognition();
+
+                    recognition.continuous = false;
+                    recognition.interimResults = false;
+
+                    recognition.lang = "pt-PT";
+                    recognition.start();
+
+                    recognition.onresult = function (e) {
+                        document.getElementById('transcript').value
+                            = e.results[0][0].transcript;
+                        recognition.stop();
+                        document.getElementById('labnol').submit();
+                    };
+
+                    recognition.onerror = function (e) {
+                        recognition.stop();
+                    }
+
+                }
+            }
         </script>
     </div>
 </div>  

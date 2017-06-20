@@ -1,69 +1,112 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+using System.Web;
+using System.Web.Mvc;
 using WhatsYummy.Models;
-using Microsoft.EntityFrameworkCore;
 
-namespace WhatsYummyApp.Controllers
+namespace WhatsYummy.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly WhatsYummyContext _context;
+        private WhatsYummyDBEntities db = new WhatsYummyDBEntities();
 
-        public HomeController(WhatsYummyContext context)
+        public ActionResult Index(string username="username")
         {
-            _context = context;
+            ViewData["Username"] = username;
+            return View();
         }
 
-        public IActionResult Index(string username = "username")
-		{
-			ViewData["Username"] = username;
-			return View();
-		}
-
-		public IActionResult About()
-		{
-			return View();
-		}
+        
+        public ActionResult About(int id)
+        {
+            Estabelecimento estabelecimento = db.Estabelecimento.Find(id);
+            ViewData["rua_destino"] = estabelecimento.Rua;
+            ViewData["codigo_destino"] = estabelecimento.CodigoPostal;
+            ViewData["localidade_destino"] = estabelecimento.Localidade;
+            return View();
+        }
 
         [HttpPost]
-		public IActionResult About(string search_input)
-		{
-			ViewData["search_input"] = search_input;
-			return View();
-		}
-
-		public IActionResult Contact()
-		{
-			ViewData["Message"] = "Your contact page.";
-			return View();
-		}
-
-		public IActionResult Error()
-		{
-			return View();
-		}
-        
-        public IActionResult Search(string search)
+        public ActionResult Search( string location1, string search )
         {
             string[] tags = search.Split(' ');
             List<Produto> prods = new List<Produto>();
+
+            Dictionary<Produto, int> lista = new Dictionary<Produto, int>();
+            
             bool encontrou;
-            foreach (var prod in _context.Produto)
+
+            foreach (var esta in db.Estabelecimento)
             {
-                encontrou = false;
-                foreach (var tag in tags)
+                int dist = esta.getDistance(location1);
+                
+                if (dist <= 25000)
                 {
-                    if (encontrou) break;
-                    foreach (var prodTag in prod.Tags)
+                    foreach (var prod in esta.Produto)
                     {
-                        if (tag.Equals(prodTag)) prods.Add(prod); encontrou = true; break;
+                        encontrou = false;
+                        for(int i = 0;i<tags.Length;i++)
+                        {
+                            if (encontrou) break;
+                            foreach (var prodTag in prod.Tag)
+                            {
+                                if (tags[i].Equals(prodTag.Nome)){
+                                    lista.Add(prod, dist);
+                                    prods.Add(prod);
+                                    encontrou = true;
+                                    ViewData[prod.EstabelecimentoId.ToString()] = esta.Nome;
+                                    break;
+                                }
+                            }
+                        }
                     }
                 }
             }
-            return View( _context.Produto.ToList());
+            ViewData["Distancias"] = lista;
+            
+            return View(prods.ToList());
+        }
+
+        [HttpPost]
+        public ActionResult SearchRandom(string location2)
+        {
+            List<Produto> prods = new List<Produto>();
+            Dictionary<Produto, int> lista = new Dictionary<Produto, int>();
+
+            foreach (var esta in db.Estabelecimento)
+            {
+
+                int dist = esta.getDistance(location2);
+
+                if (dist <= 25000)
+                {
+                    foreach (var prod in esta.Produto)
+                    {
+                        lista.Add(prod, dist);
+                        prods.Add(prod);
+                    }
+                }
+            }
+
+            Random rand = new Random();
+            int index = rand.Next(0, prods.Count());
+            Produto prodRandom = prods.ElementAt(index);
+
+            List<Produto> resList = new List<Produto>();
+            resList.Add(prodRandom);
+
+            ViewData["DistanciaRandom"] = lista[prodRandom];
+            ViewData["EstabRandom"] = db.Estabelecimento.Find(prodRandom.EstabelecimentoId).Nome;
+
+            return View(resList.ToList());
+        }   
+
+        public ActionResult Contact()
+        {
+            ViewBag.Message = "Your contact page.";
+
+            return View();
         }
     }
 }

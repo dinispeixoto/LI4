@@ -1,0 +1,94 @@
+﻿@model IEnumerable<WhatsYummy.Models.Produto>
+
+@{
+    ViewData["Title"] = "Resultados da pesquisa";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+@{
+    if (!Model.Any())
+    {
+        <p> Não existem resultados disponíveis! </p>
+        <a href='@Url.Action("Index","Home")' class="btn btn-default">Voltar</a>
+    }
+}
+
+@{
+    int dist = (int) ViewData["DistanciaRandom"];
+
+    if (Model.Any())
+    {
+        <div class="row">
+            <div class="col-lg-12">
+                <div style="overflow-x:auto;">
+                    <form action="~/Home/About" method="POST">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Nome)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Descricao)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Preco)
+                                    </th>
+                                    <th>
+                                        Estabelecimento
+                                    </th>
+                                    <th>Distância</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Nome)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Descricao)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Preco)
+                                        </td>
+                                        <td>
+                                            @{
+                                                <span>@(ViewData["EstabRandom"])</span>
+                                            }
+                                        </td>
+                                        <td>
+                                            @{
+                                                <span>@(dist.ToString()) metros</span>
+                                            }
+                                        </td>
+                                        <td>
+                                            @Html.ActionLink(
+                                                linkText: "Ir para...",
+                                                actionName: "About",
+                                                controllerName: "Home",
+                                                routeValues: new
+                                                {
+                                                    id = item.EstabelecimentoId
+                                                },
+                                                htmlAttributes: new
+                                                {
+                                                    @class = "btn btn-secondary"
+                                                }
+                                           )
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </form>
+                </div>
+            </div>
+        </div>
+    }
+}

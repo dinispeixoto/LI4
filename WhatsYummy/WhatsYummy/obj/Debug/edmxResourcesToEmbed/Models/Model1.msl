@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="WhatsYummyDBModelStoreContainer" CdmEntityContainer="WhatsYummyDBEntities">
+    <EntitySetMapping Name="Avaliacao">
+      <EntityTypeMapping TypeName="WhatsYummyDBModel.Avaliacao">
+        <MappingFragment StoreEntitySet="Avaliacao">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Classificaçao" ColumnName="Classificaçao" />
+          <ScalarProperty Name="Comentario" ColumnName="Comentario" />
+          <ScalarProperty Name="UtilizadorId" ColumnName="UtilizadorId" />
+          <ScalarProperty Name="ProdutoId" ColumnName="ProdutoId" />
+          <ScalarProperty Name="EstabelecimentoId" ColumnName="EstabelecimentoId" />
+          <ScalarProperty Name="Foto" ColumnName="Foto" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Estabelecimento">
+      <EntityTypeMapping TypeName="WhatsYummyDBModel.Estabelecimento">
+        <MappingFragment StoreEntitySet="Estabelecimento">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Nome" ColumnName="Nome" />
+          <ScalarProperty Name="CodigoPostal" ColumnName="CodigoPostal" />
+          <ScalarProperty Name="Localidade" ColumnName="Localidade" />
+          <ScalarProperty Name="Rua" ColumnName="Rua" />
+          <ScalarProperty Name="UtilizadorId" ColumnName="UtilizadorId" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Horario">
+      <EntityTypeMapping TypeName="WhatsYummyDBModel.Horario">
+        <MappingFragment StoreEntitySet="Horario">
+          <ScalarProperty Name="Dia" ColumnName="Dia" />
+          <ScalarProperty Name="EstabelecimentoId" ColumnName="EstabelecimentoId" />
+          <ScalarProperty Name="HoraAbertura" ColumnName="HoraAbertura" />
+          <ScalarProperty Name="HoraFecho" ColumnName="HoraFecho" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Produto">
+      <EntityTypeMapping TypeName="WhatsYummyDBModel.Produto">
+        <MappingFragment StoreEntitySet="Produto">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="EstabelecimentoId" ColumnName="EstabelecimentoId" />
+          <ScalarProperty Name="Nome" ColumnName="Nome" />
+          <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+          <ScalarProperty Name="Preco" ColumnName="Preco" />
+          <ScalarProperty Name="Visitas" ColumnName="Visitas" />
+          <ScalarProperty Name="Foto" ColumnName="Foto" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tag">
+      <EntityTypeMapping TypeName="WhatsYummyDBModel.Tag">
+        <MappingFragment StoreEntitySet="Tag">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+          <ScalarProperty Name="Nome" ColumnName="Nome" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Utilizador">
+      <EntityTypeMapping TypeName="WhatsYummyDBModel.Utilizador">
+        <MappingFragment StoreEntitySet="Utilizador">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Nome" ColumnName="Nome" />
+          <ScalarProperty Name="DataNascimento" ColumnName="DataNascimento" />
+          <ScalarProperty Name="Foto" ColumnName="Foto" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Admin" ColumnName="Admin" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UtilizadorProduto">
+      <EntityTypeMapping TypeName="WhatsYummyDBModel.UtilizadorProduto">
+        <MappingFragment StoreEntitySet="UtilizadorProduto">
+          <ScalarProperty Name="UtilizadorId" ColumnName="UtilizadorId" />
+          <ScalarProperty Name="ProdutoId" ColumnName="ProdutoId" />
+          <ScalarProperty Name="EstabelecimentoId" ColumnName="EstabelecimentoId" />
+          <ScalarProperty Name="Favorito" ColumnName="Favorito" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Visita">
+      <EntityTypeMapping TypeName="WhatsYummyDBModel.Visita">
+        <MappingFragment StoreEntitySet="Visita">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="UtlizadorId" ColumnName="UtlizadorId" />
+          <ScalarProperty Name="ProdutoId" ColumnName="ProdutoId" />
+          <ScalarProperty Name="EstabelecimentoId" ColumnName="EstabelecimentoId" />
+          <ScalarProperty Name="Data" ColumnName="Data" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="Preferencia" TypeName="WhatsYummyDBModel.Preferencia" StoreEntitySet="Preferencia">
+      <EndProperty Name="Tag">
+        <ScalarProperty Name="ID" ColumnName="TagId" />
+      </EndProperty>
+      <EndProperty Name="Utilizador">
+        <ScalarProperty Name="ID" ColumnName="UtilizadorId" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ProdutoTag" TypeName="WhatsYummyDBModel.ProdutoTag" StoreEntitySet="ProdutoTag">
+      <EndProperty Name="Produto">
+        <ScalarProperty Name="ID" ColumnName="ProdutoId" />
+        <ScalarProperty Name="EstabelecimentoId" ColumnName="EstabelecimentoId" />
+      </EndProperty>
+      <EndProperty Name="Tag">
+        <ScalarProperty Name="ID" ColumnName="TagId" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>

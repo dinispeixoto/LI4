@@ -1,152 +1,127 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
+using System.Net;
+using System.Web;
+using System.Web.Mvc;
 using WhatsYummy.Models;
 
 namespace WhatsYummy.Controllers
 {
     public class TagsController : Controller
     {
-        private readonly WhatsYummyContext _context;
-
-        public TagsController(WhatsYummyContext context)
-        {
-            _context = context;    
-        }
+        private WhatsYummyDBEntities db = new WhatsYummyDBEntities();
 
         // GET: Tags
-        public async Task<IActionResult> Index()
+        public ActionResult Index()
         {
-            return View(await _context.Tag.ToListAsync());
+            return View(db.Tag.ToList());
         }
 
         // GET: Tags/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public ActionResult Details(int? id)
         {
             if (id == null)
             {
-                return NotFound();
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
-            var tag = await _context.Tag
-                .SingleOrDefaultAsync(m => m.Id == id);
+            Tag tag = db.Tag.Find(id);
             if (tag == null)
             {
-                return NotFound();
+                return HttpNotFound();
             }
-
             return View(tag);
         }
 
         // GET: Tags/Create
-        public IActionResult Create()
+        public ActionResult Create()
         {
             return View();
         }
 
         // POST: Tags/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
+        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Tipo,Nome")] Tag tag)
+        public ActionResult Create([Bind(Include = "ID,Tipo,Nome")] Tag tag)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(tag);
-                await _context.SaveChangesAsync();
+                db.Tag.Add(tag);
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
             return View(tag);
         }
 
         // GET: Tags/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public ActionResult Edit(int? id)
         {
             if (id == null)
             {
-                return NotFound();
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
-            var tag = await _context.Tag.SingleOrDefaultAsync(m => m.Id == id);
+            Tag tag = db.Tag.Find(id);
             if (tag == null)
             {
-                return NotFound();
+                return HttpNotFound();
             }
             return View(tag);
         }
 
         // POST: Tags/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
+        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Tipo,Nome")] Tag tag)
+        public ActionResult Edit([Bind(Include = "ID,Tipo,Nome")] Tag tag)
         {
-            if (id != tag.Id)
-            {
-                return NotFound();
-            }
-
             if (ModelState.IsValid)
             {
-                try
-                {
-                    _context.Update(tag);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!TagExists(tag.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                db.Entry(tag).State = EntityState.Modified;
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(tag);
         }
 
         // GET: Tags/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public ActionResult Delete(int? id)
         {
             if (id == null)
             {
-                return NotFound();
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
-            var tag = await _context.Tag
-                .SingleOrDefaultAsync(m => m.Id == id);
+            Tag tag = db.Tag.Find(id);
             if (tag == null)
             {
-                return NotFound();
+                return HttpNotFound();
             }
-
             return View(tag);
         }
 
         // POST: Tags/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int id)
         {
-            var tag = await _context.Tag.SingleOrDefaultAsync(m => m.Id == id);
-            _context.Tag.Remove(tag);
-            await _context.SaveChangesAsync();
+            Tag tag = db.Tag.Find(id);
+            db.Tag.Remove(tag);
+            db.SaveChanges();
             return RedirectToAction("Index");
         }
 
-        private bool TagExists(int id)
+        protected override void Dispose(bool disposing)
         {
-            return _context.Tag.Any(e => e.Id == id);
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
 }
